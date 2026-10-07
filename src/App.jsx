@@ -1,0 +1,126 @@
+import { useEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Lenis from 'lenis'
+import { siteConfig } from './data/siteConfig'
+import useReducedMotion from './hooks/useReducedMotion'
+import Header from './components/Header'
+import Hero from './components/Hero'
+import RoomsSection from './components/RoomsSection'
+import GallerySection from './components/GallerySection'
+import { AboutSection, AmenitiesSection, DiningSection, ReviewsSection, LocationSection, FaqSection, ContactSection, FooterSection } from './components/ExperienceSections'
+import { CustomCursor, Lightbox, Loader, WhatsAppFloat } from './components/UI'
+
+gsap.registerPlugin(ScrollTrigger)
+
+export default function App() {
+  const reducedMotion = useReducedMotion()
+  const lenisRef = useRef(null)
+  const [loading, setLoading] = useState(true)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [lightbox, setLightbox] = useState(null)
+  const [bookingIntent, setBookingIntent] = useState(null)
+
+  useEffect(() => {
+    if (reducedMotion) {
+      setLoading(false)
+      return undefined
+    }
+    const timer = window.setTimeout(() => setLoading(false), 1550)
+    return () => window.clearTimeout(timer)
+  }, [reducedMotion])
+
+  useEffect(() => {
+    if (loading) return undefined
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray('[data-reveal]').forEach((element) => {
+        gsap.fromTo(element, { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 88%', once: true } })
+      })
+      if (!reducedMotion) {
+        gsap.fromTo('.hero-media img', { scale: 1.16 }, { scale: 1.03, duration: 2, ease: 'power2.out' })
+        gsap.to('.hero-media img', { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } })
+        gsap.fromTo('.hero-copy-line', { yPercent: 105, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.05, stagger: 0.13, delay: 0.2, ease: 'power4.out' })
+        gsap.utils.toArray('.image-reveal img').forEach((image) => gsap.fromTo(image, { scale: 1.08 }, { scale: 1, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: image, start: 'top 86%', once: true } }))
+        const track = document.querySelector('.rooms-track')
+        const pin = document.querySelector('.rooms-pin')
+        if (track && pin && window.matchMedia('(min-width: 960px)').matches) {
+          const getDistance = () => Math.max(0, track.scrollWidth - window.innerWidth + 80)
+          gsap.to(track, { x: () => -getDistance(), ease: 'none', scrollTrigger: { trigger: pin, start: 'top top', end: () => `+=${getDistance()}`, scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true } })
+        }
+      }
+      ScrollTrigger.refresh()
+    })
+    return () => {
+      ctx.revert()
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+    }
+  }, [loading, reducedMotion])
+
+  useEffect(() => {
+    const bar = document.querySelector('.progress-bar')
+    const onScroll = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight
+      if (bar && scrollable > 0) bar.style.transform = `scaleX(${Math.min(1, window.scrollY / scrollable)})`
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    if (reducedMotion) return undefined
+    const lenis = new Lenis({ lerp: 0.085, smoothWheel: true })
+    lenisRef.current = lenis
+    const onScroll = () => ScrollTrigger.update()
+    const raf = (time) => lenis.raf(time * 1000)
+    lenis.on('scroll', onScroll)
+    gsap.ticker.add(raf)
+    gsap.ticker.lagSmoothing(0)
+    return () => {
+      lenis.off('scroll', onScroll)
+      gsap.ticker.remove(raf)
+      lenis.destroy()
+      lenisRef.current = null
+    }
+  }, [reducedMotion])
+
+  useEffect(() => {
+    document.body.classList.toggle('menu-open', menuOpen)
+    if (lenisRef.current) {
+      if (menuOpen) lenisRef.current.stop()
+      else lenisRef.current.start()
+    }
+    return () => {
+      document.body.classList.remove('menu-open')
+      lenisRef.current?.start()
+    }
+  }, [menuOpen])
+
+  const openBooking = (intent = {}) => {
+    setBookingIntent(intent)
+    window.setTimeout(() => document.querySelector('#contact')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' }), 40)
+  }
+  const handleAvailability = (dates) => openBooking(dates)
+  return <>
+    <Loader visible={loading} />
+    <div className="progress-bar" aria-hidden="true" />
+    <Header menuOpen={menuOpen} onMenuToggle={setMenuOpen} />
+    <main>
+      <Hero onAvailability={handleAvailability} />
+      <AboutSection />
+      <RoomsSection onBook={(room) => openBooking({ room: room.name })} />
+      <AmenitiesSection />
+      <DiningSection />
+      <GallerySection onOpen={setLightbox} />
+      <ReviewsSection />
+      <LocationSection />
+      <FaqSection />
+      <ContactSection bookingIntent={bookingIntent} />
+    </main>
+    <FooterSection />
+    <WhatsAppFloat />
+    <Lightbox image={lightbox} onClose={() => setLightbox(null)} />
+    <CustomCursor />
+    <div className="grain" aria-hidden="true" />
+    <div className="sr-only">{siteConfig.brand.shortName} resort website</div>
+  </>
+}
