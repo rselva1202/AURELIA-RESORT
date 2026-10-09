@@ -31,6 +31,7 @@ export default function Hero({ onAvailability }) {
     <section className="hero" id="top" aria-labelledby="hero-title">
       <div className="hero__media"><ImageReveal image={siteConfig.images.hero} eager className="hero-media" /></div>
       <div className="hero__shade" />
+      <div className="hero__shade-sunset" aria-hidden="true" />
       <div className="hero__content page-shell">
         <div className="hero__eyebrow" aria-hidden="true"><span className="hero__line" /></div>
         <h1 id="hero-title">{siteConfig.brand.taglineLines.map((line, index) => <span className={`hero-copy-line ${index === 1 ? 'hero-copy-line--indent' : ''}`} key={line}>{line}</span>)}</h1>

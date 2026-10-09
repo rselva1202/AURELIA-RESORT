@@ -11,7 +11,7 @@ export default defineConfig({
   plugins: [
     react(),
     {
-      name: 'aurelia-config-meta',
+      name: 'thira-config-meta',
       transformIndexHtml(html) {
         const ogImage = siteConfig.images.hero.src.replace(
           /([?&])w=\d+/,

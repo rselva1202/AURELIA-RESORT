@@ -9,7 +9,7 @@ import Hero from './components/Hero'
 import RoomsSection from './components/RoomsSection'
 import GallerySection from './components/GallerySection'
 import { AboutSection, AmenitiesSection, DiningSection, ReviewsSection, LocationSection, FaqSection, ContactSection, FooterSection } from './components/ExperienceSections'
-import { CustomCursor, Lightbox, Loader, WhatsAppFloat } from './components/UI'
+import { CustomCursor, Lightbox, Loader, WaveDivider, WhatsAppFloat } from './components/UI'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -22,13 +22,15 @@ export default function App() {
   const [bookingIntent, setBookingIntent] = useState(null)
 
   useEffect(() => {
-    if (reducedMotion) {
-      setLoading(false)
-      return undefined
+    document.body.classList.toggle('loader-locked', loading)
+    if (lenisRef.current) {
+      if (loading) lenisRef.current.stop()
+      else if (!menuOpen) lenisRef.current.start()
     }
-    const timer = window.setTimeout(() => setLoading(false), 1550)
-    return () => window.clearTimeout(timer)
-  }, [reducedMotion])
+    return () => {
+      document.body.classList.remove('loader-locked')
+    }
+  }, [loading, menuOpen])
 
   useEffect(() => {
     if (loading) return undefined
@@ -39,7 +41,8 @@ export default function App() {
       if (!reducedMotion) {
         gsap.fromTo('.hero-media img', { scale: 1.16 }, { scale: 1.03, duration: 2, ease: 'power2.out' })
         gsap.to('.hero-media img', { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } })
-        gsap.fromTo('.hero-copy-line', { yPercent: 105, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.05, stagger: 0.13, delay: 0.2, ease: 'power4.out' })
+        gsap.to('.hero__shade-sunset', { opacity: 1, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } })
+        gsap.fromTo('.hero-copy-line', { yPercent: 105, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.05, stagger: 0.13, delay: 0.05, ease: 'power4.out' })
         gsap.utils.toArray('.image-reveal img').forEach((image) => gsap.fromTo(image, { scale: 1.08 }, { scale: 1, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: image, start: 'top 86%', once: true } }))
         const track = document.querySelector('.rooms-track')
         const pin = document.querySelector('.rooms-pin')
@@ -101,20 +104,30 @@ export default function App() {
   }
   const handleAvailability = (dates) => openBooking(dates)
   return <>
-    <Loader visible={loading} />
+    {loading && <Loader onComplete={() => setLoading(false)} />}
     <div className="progress-bar" aria-hidden="true" />
     <Header menuOpen={menuOpen} onMenuToggle={setMenuOpen} />
     <main>
       <Hero onAvailability={handleAvailability} />
+      <WaveDivider fill="var(--sand)" />
       <AboutSection />
+      <WaveDivider fill="var(--ocean-teal)" />
       <RoomsSection onBook={(room) => openBooking({ room: room.name })} />
+      <WaveDivider fill="var(--cream)" />
       <AmenitiesSection />
+      <WaveDivider fill="var(--sage)" />
       <DiningSection />
+      <WaveDivider fill="var(--cream)" />
       <GallerySection onOpen={setLightbox} />
+      <WaveDivider fill="var(--ocean-teal)" />
       <ReviewsSection />
+      <WaveDivider fill="var(--sand)" />
       <LocationSection />
+      <WaveDivider fill="var(--cream)" />
       <FaqSection />
+      <WaveDivider fill="var(--laterite)" />
       <ContactSection bookingIntent={bookingIntent} />
+      <WaveDivider fill="var(--ocean-teal)" />
     </main>
     <FooterSection />
     <WhatsAppFloat />

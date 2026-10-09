@@ -8,9 +8,10 @@ export function ArrowIcon({ direction = 'right' }) {
 }
 
 export function BrandMark({ light = false, className = '' }) {
+  const initial = siteConfig.brand.shortName ? siteConfig.brand.shortName[0] : 'T'
   return (
     <span className={`brand-mark ${light ? 'brand-mark--light' : ''} ${className}`}>
-      <span className="brand-mark__seal" aria-hidden="true"><span>A</span></span>
+      <span className="brand-mark__seal" aria-hidden="true"><span>{initial}</span></span>
       <span className="brand-mark__type"><strong>{siteConfig.brand.shortName}</strong>{siteConfig.brand.descriptor && <small>{siteConfig.brand.descriptor}</small>}</span>
     </span>
   )
@@ -18,8 +19,39 @@ export function BrandMark({ light = false, className = '' }) {
 
 export function Button({ children, href, onClick, variant = 'primary', type = 'button', className = '', target }) {
   const classes = `button button--${variant} ${className}`
-  if (href) return <a className={classes} href={href} onClick={onClick} target={target} rel={target === '_blank' ? 'noreferrer' : undefined}><span>{children}</span><ArrowIcon /></a>
-  return <button className={classes} onClick={onClick} type={type}><span>{children}</span><ArrowIcon /></button>
+  const handleClick = (event) => {
+    const btn = event.currentTarget
+    const circle = document.createElement('span')
+    const diameter = Math.max(btn.clientWidth, btn.clientHeight)
+    const radius = diameter / 2
+    const rect = btn.getBoundingClientRect()
+    circle.style.width = circle.style.height = `${diameter}px`
+    circle.style.left = `${event.clientX - rect.left - radius}px`
+    circle.style.top = `${event.clientY - rect.top - radius}px`
+    circle.classList.add('button-ripple')
+    const existing = btn.querySelector('.button-ripple')
+    if (existing) existing.remove()
+    btn.appendChild(circle)
+    window.setTimeout(() => circle.remove(), 650)
+    if (onClick) onClick(event)
+  }
+
+  if (href) return <a className={classes} href={href} onClick={handleClick} target={target} rel={target === '_blank' ? 'noreferrer' : undefined}><span>{children}</span><ArrowIcon /></a>
+  return <button className={classes} onClick={handleClick} type={type}><span>{children}</span><ArrowIcon /></button>
+}
+
+export function WaveDivider({ flip = false, fill = 'currentColor', className = '' }) {
+  return (
+    <div className={`wave-divider ${flip ? 'wave-divider--flip' : ''} ${className}`} aria-hidden="true">
+      <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
+        <path
+          className="wave-drift"
+          fill={fill}
+          d="M0,24 C240,48 480,4 720,24 C960,44 1200,8 1440,24 L1440,60 L0,60 Z"
+        />
+      </svg>
+    </div>
+  )
 }
 
 export function SectionHeading({ eyebrow, title, body, align = 'left', dark = false }) {
@@ -31,9 +63,7 @@ export function ImageReveal({ image, className = '', eager = false, onClick, cur
   return <figure className={`image-reveal ${className} ${cursorView ? 'cursor-view' : ''}`} data-reveal onClick={onClick}><img src={image.src} srcSet={responsiveSrcSet(image.src)} sizes={sizes} width={image.width || 1400} height={image.height || 1000} alt={image.alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />{cursorView && <span className="image-reveal__label">View</span>}</figure>
 }
 
-export function Loader({ visible }) {
-  return <div className={`loader ${visible ? 'loader--visible' : 'loader--hidden'}`} aria-hidden={!visible}><div className="loader__inner"><BrandMark light /><p>Arrive slowly.</p></div></div>
-}
+export { Loader } from './Loader'
 
 export function CustomCursor() {
   const cursorRef = useRef(null)
