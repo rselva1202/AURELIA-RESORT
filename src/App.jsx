@@ -46,7 +46,7 @@ export default function App() {
         gsap.utils.toArray('.image-reveal img').forEach((image) => gsap.fromTo(image, { scale: 1.08 }, { scale: 1, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: image, start: 'top 86%', once: true } }))
         const track = document.querySelector('.rooms-track')
         const pin = document.querySelector('.rooms-pin')
-        if (track && pin && window.matchMedia('(min-width: 960px)').matches) {
+        if (track && pin && window.matchMedia('(min-width: 981px)').matches) {
           const getDistance = () => Math.max(0, track.scrollWidth - window.innerWidth + 80)
           gsap.to(track, { x: () => -getDistance(), ease: 'none', scrollTrigger: { trigger: pin, start: 'top top', end: () => `+=${getDistance()}`, scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true } })
         }
