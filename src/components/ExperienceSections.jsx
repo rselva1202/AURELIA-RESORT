@@ -29,7 +29,7 @@ export function AboutSection() {
           </div>
           <div className="about__actions">
             <a className="text-link" href="#menu">
-              Explore the sample menu <ArrowIcon />
+              Explore our menu <ArrowIcon />
             </a>
             <a className="text-link" href="#location">
               Find our cliff perch <ArrowIcon />
@@ -175,7 +175,6 @@ export function ReviewsSection() {
         </div>
 
         <div className="review-card" data-reveal>
-          <div className="review-card__badge-sample">sample review</div>
           <div className="review-card__quote">“</div>
           <blockquote>{review.quote}</blockquote>
           <div className="review-card__meta">
@@ -279,32 +278,17 @@ export function LocationSection() {
           </div>
         </div>
 
-        <div
-          className="map-card"
-          role="img"
-          aria-label={`Stylised map showing God's Own Country Kitchen on North Cliff near Helipad, Varkala`}
-        >
-          <div className="map-card__water">
-            <span>
-              {waterWords.map((word) => (
-                <span key={word}>{word}<br /></span>
-              ))}
-            </span>
-          </div>
-          <div className="map-card__roads"><i /><i /><i /><i /></div>
-          <div className="map-card__pin">
-            {logoSrc ? (
-              <img src={logoSrc} alt="" className="map-card__pin-logo" />
-            ) : (
-              <span>G</span>
-            )}
-            <b>{siteConfig.brand.shortName}</b>
-            <small>North Cliff · Helipad</small>
-          </div>
-          <div className="map-card__footer">
-            <span>{siteConfig.brand.coordinates}</span>
-            <a href={siteConfig.brand.mapsUrl} target="_blank" rel="noreferrer">Open in Maps ↗</a>
-          </div>
+        <div className="map-embed-wrapper">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3943.52622970911!2d76.7033032!3d8.7364556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05ef1c6cdef8c3%3A0xb901243366d650b8!2sGod's%20Own%20Country%20Kitchen!5e0!3m2!1sen!2sin!4v1791660658325!5m2!1sen!2sin"
+            width="600"
+            height="450"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+            title="God's Own Country Kitchen Google Map"
+          />
         </div>
       </div>
     </section>

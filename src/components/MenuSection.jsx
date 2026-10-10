@@ -20,15 +20,10 @@ export default function MenuSection({ onReserveItem }) {
       <div className="page-shell">
         <div className="menu-header">
           <SectionHeading
-            eyebrow={siteConfig.demoMode ? `${menuCfg.badge || 'Sample menu'} · North Cliff, Varkala` : (menuCfg.badge || 'Our Menu')}
+            eyebrow={`${menuCfg.badge || 'Our Menu'} · North Cliff, Varkala`}
             title={menuCfg.title || 'The Cliff Kitchen Menu.'}
             body={menuCfg.subtitle || 'Fresh Arabian catches, traditional clay pot preparations, and vegetarian delicacies.'}
           />
-          {siteConfig.demoMode && (
-            <div className="menu-demo-alert" role="note">
-              <span>ⓘ Sample menu concept · No invented prices · Actual catch and kitchen pricing on restaurant menu</span>
-            </div>
-          )}
         </div>
 
         {/* Controls: Category tabs + Veg Only toggle */}

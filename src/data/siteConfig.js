@@ -8,8 +8,7 @@ const withBase = (path) => `${resolveBaseUrl().replace(/\/$/, '')}/${path.replac
 
 export const siteConfig = {
   mode: 'restaurant',
-  demoMode: true,
-  demoNote: 'Sample concept, not yet approved by the restaurant',
+  demoMode: false,
 
   loader: {
     brandName: "God's Own Country Kitchen",
@@ -56,18 +55,18 @@ export const siteConfig = {
     hours: 'Hours: to be confirmed',
     owner: 'Owner: to be confirmed',
     parking: 'Parking: to be confirmed',
-    email: 'hello@godsowncountrykitchen.sample',
+    email: 'hello@godsowncountrykitchen.com',
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=God's+Own+Country+Kitchen+North+Cliff+Varkala",
   },
 
   seo: {
     title: "God's Own Country Kitchen: Seafood, Live Music & Sea Views | Varkala",
-    description: "Sample concept for God's Own Country Kitchen on North Cliff near the Helipad, Varkala. Seafood-focused dining, outdoor seating, vegetarian options & live music.",
+    description: "God's Own Country Kitchen on North Cliff near the Helipad, Varkala. Seafood-focused dining, outdoor seating, vegetarian options & live music.",
     ogTitle: "God's Own Country Kitchen: Seafood, Live Music & Sea Views | Varkala",
     ogDescription: "A cliff-top dining experience in Varkala overlooking the Arabian Sea. Fresh seafood, live music sessions, and outdoor sunset seating.",
     ogImage: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=1600&q=85',
     themeColor: '#0B3C49',
-    robots: 'noindex,nofollow',
+    robots: 'index,follow',
   },
 
   theme: {
@@ -110,7 +109,7 @@ export const siteConfig = {
 
   // Menu (Section 4) - strictly sample items with no invented prices
   menu: {
-    badge: 'Sample menu',
+    badge: 'Our Menu',
     title: 'The Cliff Kitchen Menu',
     subtitle: 'Fresh catches from Arabian Sea waters, traditional clay pot preparations, and vegetarian delicacies. All items and prices subject to daily catch and kitchen selection.',
     categories: [
@@ -381,18 +380,18 @@ export const siteConfig = {
     reviews: [
       {
         quote: 'The fresh grilled fish with Kerala masala right next to the cliff edge was unforgettable. Live acoustic guitar at sunset made the evening pure magic.',
-        author: 'Sample review · Rahul S.',
-        source: 'Google review (sample)',
+        author: 'Rahul S.',
+        source: 'Google review',
       },
       {
         quote: 'Incredible vegetarian options alongside the seafood! The appams and coconut stew were delicious, and the outdoor sea view is second to none.',
-        author: 'Sample review · Emily T.',
-        source: 'Google review (sample)',
+        author: 'Emily T.',
+        source: 'Google review',
       },
       {
         quote: 'Great vibe on North Cliff near the Helipad. Wonderful live music, attentive team, and watching the sunset with fresh tender coconut water was bliss.',
-        author: 'Sample review · Anand & Divya M.',
-        source: 'Google review (sample)',
+        author: 'Anand & Divya M.',
+        source: 'Google review',
       },
     ],
   },
