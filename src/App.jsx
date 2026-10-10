@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from 'lenis'
@@ -11,15 +11,27 @@ import GallerySection from './components/GallerySection'
 import { AboutSection, AmenitiesSection, DiningSection, ReviewsSection, LocationSection, FaqSection, ContactSection, FooterSection } from './components/ExperienceSections'
 import { CustomCursor, Lightbox, Loader, WaveDivider, WhatsAppFloat } from './components/UI'
 
+const Scene3DContainer = lazy(() => import('./components/Scene3D/Scene3DContainer'))
+
 gsap.registerPlugin(ScrollTrigger)
 
 export default function App() {
   const reducedMotion = useReducedMotion()
   const lenisRef = useRef(null)
+  const scrollProgressRef = useRef(0)
   const [loading, setLoading] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
   const [lightbox, setLightbox] = useState(null)
   const [bookingIntent, setBookingIntent] = useState(null)
+  const [scene3DActive, setScene3DActive] = useState(() => siteConfig.scene3D?.enabled !== false && !reducedMotion)
+
+  useEffect(() => {
+    const is3D = scene3DActive && !reducedMotion
+    document.body.classList.toggle('has-scene-3d', is3D)
+    return () => {
+      document.body.classList.remove('has-scene-3d')
+    }
+  }, [scene3DActive, reducedMotion])
 
   useEffect(() => {
     document.body.classList.toggle('loader-locked', loading)
@@ -61,10 +73,13 @@ export default function App() {
 
   useEffect(() => {
     const bar = document.querySelector('.progress-bar')
-    const onScroll = () => {
+    const updateProgress = (scrollVal) => {
       const scrollable = document.documentElement.scrollHeight - window.innerHeight
-      if (bar && scrollable > 0) bar.style.transform = `scaleX(${Math.min(1, window.scrollY / scrollable)})`
+      const p = scrollable > 0 ? Math.min(1, Math.max(0, scrollVal / scrollable)) : 0
+      scrollProgressRef.current = p
+      if (bar) bar.style.transform = `scaleX(${p})`
     }
+    const onScroll = () => updateProgress(window.scrollY)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
@@ -73,7 +88,12 @@ export default function App() {
     if (reducedMotion) return undefined
     const lenis = new Lenis({ lerp: 0.085, smoothWheel: true })
     lenisRef.current = lenis
-    const onScroll = () => ScrollTrigger.update()
+    const onScroll = (e) => {
+      ScrollTrigger.update()
+      if (e && typeof e.progress === 'number') {
+        scrollProgressRef.current = e.progress
+      }
+    }
     const raf = (time) => lenis.raf(time * 1000)
     lenis.on('scroll', onScroll)
     gsap.ticker.add(raf)
@@ -105,6 +125,16 @@ export default function App() {
   const handleAvailability = (dates) => openBooking(dates)
   return <>
     {loading && <Loader onComplete={() => setLoading(false)} />}
+    {!loading && scene3DActive && !reducedMotion && (
+      <Suspense fallback={null}>
+        <Scene3DContainer
+          scrollProgressRef={scrollProgressRef}
+          enabled={scene3DActive}
+          qualitySetting={siteConfig.scene3D?.quality || 'auto'}
+          reducedMotion={reducedMotion}
+        />
+      </Suspense>
+    )}
     <div className="progress-bar" aria-hidden="true" />
     <Header menuOpen={menuOpen} onMenuToggle={setMenuOpen} />
     <main>
@@ -129,7 +159,10 @@ export default function App() {
       <ContactSection bookingIntent={bookingIntent} />
       <WaveDivider fill="var(--ocean-teal)" />
     </main>
-    <FooterSection />
+    <FooterSection
+      scene3DActive={scene3DActive && !reducedMotion}
+      onToggle3D={() => setScene3DActive((prev) => !prev)}
+    />
     <WhatsAppFloat />
     <Lightbox image={lightbox} onClose={() => setLightbox(null)} />
     <CustomCursor />

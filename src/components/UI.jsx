@@ -8,11 +8,18 @@ export function ArrowIcon({ direction = 'right' }) {
 }
 
 export function BrandMark({ light = false, className = '' }) {
-  const initial = siteConfig.brand.shortName ? siteConfig.brand.shortName[0] : 'T'
+  const initial = siteConfig.brand.name ? siteConfig.brand.name[0] : 'G'
   return (
     <span className={`brand-mark ${light ? 'brand-mark--light' : ''} ${className}`}>
-      <span className="brand-mark__seal" aria-hidden="true"><span>{initial}</span></span>
-      <span className="brand-mark__type"><strong>{siteConfig.brand.shortName}</strong>{siteConfig.brand.descriptor && <small>{siteConfig.brand.descriptor}</small>}</span>
+      {siteConfig.brand.logo ? (
+        <img src={siteConfig.brand.logo} alt="" className="brand-mark__logo" />
+      ) : (
+        <span className="brand-mark__seal" aria-hidden="true"><span>{initial}</span></span>
+      )}
+      <span className="brand-mark__type">
+        <strong>{siteConfig.brand.name}</strong>
+        {siteConfig.brand.descriptor && <small>{siteConfig.brand.descriptor}</small>}
+      </span>
     </span>
   )
 }

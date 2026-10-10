@@ -15,7 +15,11 @@ export function AboutSection() {
             body={siteConfig.about?.body}
           />
           <div className="about__signature">
-            <span className="signature-mark">{siteConfig.brand.shortName ? siteConfig.brand.shortName[0] : 'T'}</span>
+            {siteConfig.brand.logo ? (
+              <img src={siteConfig.brand.logo} alt="" className="about__signature-logo" />
+            ) : (
+              <span className="signature-mark">{siteConfig.brand.shortName ? siteConfig.brand.shortName[0] : 'G'}</span>
+            )}
             <span>{siteConfig.about?.caption || 'Perched quietly on the Varkala cliff.'}</span>
           </div>
           <a className="text-link" href="#location">Find your way here <ArrowIcon /></a>
@@ -149,7 +153,11 @@ export function LocationSection() {
           </div>
           <div className="map-card__roads"><i /><i /><i /><i /></div>
           <div className="map-card__pin">
-            <span>{siteConfig.brand.shortName ? siteConfig.brand.shortName[0] : 'T'}</span>
+            {siteConfig.brand.logo ? (
+              <img src={siteConfig.brand.logo} alt="" className="map-card__pin-logo" />
+            ) : (
+              <span>{siteConfig.brand.shortName ? siteConfig.brand.shortName[0] : 'G'}</span>
+            )}
             <b>{siteConfig.brand.shortName}</b>
           </div>
           <div className="map-card__footer">
@@ -229,7 +237,7 @@ export function ContactSection({ bookingIntent }) {
   )
 }
 
-export function FooterSection() {
+export function FooterSection({ scene3DActive = false, onToggle3D }) {
   return (
     <footer className="footer section-ink">
       <div className="footer__top page-shell">
@@ -248,6 +256,18 @@ export function FooterSection() {
           </div>
         </div>
       </div>
+      {onToggle3D && (
+        <div className="footer__motion-control page-shell">
+          <button
+            type="button"
+            className="motion-toggle-btn"
+            onClick={onToggle3D}
+            aria-pressed={scene3DActive}
+          >
+            {scene3DActive ? '✦ 3D Scene Active · Switch to 2D' : '✧ 3D Scene Off · Switch to 3D'}
+          </button>
+        </div>
+      )}
       <div className="footer__bottom page-shell">
         <span>© {new Date().getFullYear()} {siteConfig.brand.shortName}</span>
         <span className="footer__demo-note">{siteConfig.demoNote || 'Sample website demo'}</span>
@@ -259,9 +279,14 @@ export function FooterSection() {
 
 function BrandFooter() {
   return (
-    <div className="footer-brand" aria-label={`${siteConfig.brand.shortName} Resort`}>
-      <span>{siteConfig.brand.shortName}</span>
-      {siteConfig.brand.descriptor && <small>{siteConfig.brand.descriptor}</small>}
+    <div className="footer-brand" aria-label={siteConfig.brand.name}>
+      {siteConfig.brand.logo && (
+        <img src={siteConfig.brand.logo} alt="" className="footer-brand__logo" />
+      )}
+      <div className="footer-brand__text">
+        <span>{siteConfig.brand.name}</span>
+        {siteConfig.brand.descriptor && <small>{siteConfig.brand.descriptor}</small>}
+      </div>
     </div>
   )
 }

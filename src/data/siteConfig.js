@@ -1,8 +1,13 @@
 export const siteConfig = {
   demoMode: true,
   demoNote: 'Sample website demo',
+  scene3D: {
+    enabled: true,
+    quality: 'auto', // 'auto' | 'high' | 'low' | 'off'
+  },
   loader: {
-    brandName: 'THIRA',
+    brandName: "God's Own Country Kitchen",
+    logo: '/logo.png',
     tagline: 'Varkala · Kerala',
     colors: {
       bg: '#0B3C49',
@@ -23,11 +28,12 @@ export const siteConfig = {
     },
   },
   brand: {
-    name: 'THIRA',
-    shortName: 'THIRA',
+    name: "God's Own Country Kitchen",
+    shortName: "God's Own Country Kitchen",
+    logo: '/logo.png',
     tagline: 'Where the cliff meets the sea.',
     taglineLines: ['Where the cliff', 'meets the sea.'],
-    descriptor: 'Cliff Resort · Varkala',
+    descriptor: 'Seafood Corner · Varkala',
     title: 'Where the cliff meets the sea.',
     subline: 'A cliff-top sanctuary above the Arabian Sea. Slow mornings, salt air, and unobstructed sunset views just a short walk from the beach.',
     city: 'Varkala, Kerala',
@@ -43,13 +49,13 @@ export const siteConfig = {
     checkIn: '2:00 PM',
     checkOut: '11:00 AM',
     hours: 'Front desk · 24 hours',
-    email: 'stay@thiravarkala.com',
+    email: 'stay@godsowncountrykitchen.com',
     mapsUrl: 'https://maps.google.com/?q=North+Cliff+Varkala+Kerala',
   },
   seo: {
-    title: 'THIRA — Where the cliff meets the sea | Varkala, Kerala',
-    description: 'THIRA is a cliff-top boutique resort demo in Varkala, Kerala, perched above the Arabian Sea for unhurried coastal stays.',
-    ogDescription: 'Perched on Varkala’s red cliffs above the Arabian Sea. Discover THIRA, a boutique coastal resort demo in Kerala.',
+    title: "God's Own Country Kitchen — Seafood Corner & Stay | Varkala, Kerala",
+    description: "God's Own Country Kitchen is a cliff-top boutique dining and resort stay demo in Varkala, Kerala, perched above the Arabian Sea.",
+    ogDescription: "Perched on Varkala’s red cliffs above the Arabian Sea. Discover God's Own Country Kitchen in Kerala.",
     ogImage: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1200&q=80',
     themeColor: '#0B3C49',
   },
@@ -162,10 +168,10 @@ export const siteConfig = {
     ],
   },
   about: {
-    eyebrow: 'THIRA story',
+    eyebrow: "Our story",
     title: 'A perch above the waves.',
-    body: 'We built THIRA as an unhurried perch where the red cliffs of Varkala look out over the endless Arabian Sea. A small family-run cliff resort where slow mornings begin with locally brewed spiced chai and gentle sea breezes, and evenings gather quietly around the horizon’s sunset glow.',
-    caption: 'Family-run cliff sanctuary perched above Varkala’s North Cliff.',
+    body: "We built God's Own Country Kitchen as an unhurried perch where the red cliffs of Varkala look out over the endless Arabian Sea. A boutique cliff stay and culinary haven where slow mornings begin with locally brewed spiced chai and gentle sea breezes, and evenings gather quietly around the horizon’s sunset glow.",
+    caption: 'Cliff sanctuary perched above Varkala’s North Cliff · Est. 2012.',
   },
   dining: {
     eyebrow: 'At the table',
@@ -175,7 +181,7 @@ export const siteConfig = {
   location: {
     eyebrow: 'Close to the good things',
     title: 'Meet us on the cliff.',
-    body: 'Perched on Varkala’s red laterite cliff, THIRA is close enough to walk down to Papanasam Beach and secluded enough for the coastal evenings to feel entirely your own.',
+    body: "Perched on Varkala’s red laterite cliff, God's Own Country Kitchen is close enough to walk down to Papanasam Beach and secluded enough for the coastal evenings to feel entirely your own.",
   },
   roomsSection: {
     eyebrow: 'Stay a little longer',
@@ -208,8 +214,8 @@ export const siteConfig = {
   ],
   faqs: [
     {
-      question: 'How do we reach THIRA in Varkala?',
-      answer: 'Varkala Sivagiri Railway Station is approximately 10 minutes away by auto-rickshaw. Thiruvananthapuram International Airport (TRV) is about 45 km south (1 to 1.5 hours by car). Pre-arranged pickup can be organized upon request.',
+      question: "How do we reach God's Own Country Kitchen in Varkala?",
+      answer: "Varkala Sivagiri Railway Station is approximately 10 minutes away by auto-rickshaw. Thiruvananthapuram International Airport (TRV) is about 45 km south (1 to 1.5 hours by car). Pre-arranged pickup can be organized upon request.",
     },
     {
       question: 'What is the best season to visit?',

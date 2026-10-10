@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { siteConfig } from '../data/siteConfig'
 import useReducedMotion from '../hooks/useReducedMotion'
 
-const SESSION_STORAGE_KEY = 'thira_loader_session_seen'
+const SESSION_STORAGE_KEY = 'gock_loader_session_seen'
 
 export function Loader({ onComplete }) {
   const hookReduced = useReducedMotion()
@@ -17,12 +17,13 @@ export function Loader({ onComplete }) {
   const [progress, setProgress] = useState(0)
 
   const config = siteConfig.loader || {
-    brandName: 'THIRA',
+    brandName: "God's Own Country Kitchen",
+    logo: '/logo.png',
     tagline: 'Varkala · Kerala',
     colors: {
       bg: '#0B3C49',
-      foam: '#C7E8E0',
-      sand: '#E3CEAA',
+      foam: '#7FC8C0',
+      sand: '#F3E9D7',
       outline: 'rgba(255, 255, 255, 0.45)',
       sun: '#F7A072',
       sunGlow: 'rgba(247, 160, 114, 0.55)',
@@ -38,7 +39,7 @@ export function Loader({ onComplete }) {
     },
   }
 
-  const { brandName, tagline, colors, timings } = config
+  const { brandName, logo, tagline, colors, timings } = config
 
   // Check session storage for repeat visit
   const isFirstVisitRef = useRef(null)
@@ -100,7 +101,7 @@ export function Loader({ onComplete }) {
 
       // Initial visual states
       if (wavesGroupRef.current) {
-        wavesGroupRef.current.setAttribute('transform', 'translate(0, 125)')
+        wavesGroupRef.current.setAttribute('transform', 'translate(0, 165)')
       }
       if (sunRef.current) {
         sunRef.current.style.transform = 'translateY(-34px)'
@@ -110,8 +111,8 @@ export function Loader({ onComplete }) {
         const clamped = Math.min(100, Math.max(0, val))
         setProgress(Math.round(clamped))
 
-        // Tide rises vertically inside the letters (from 125 to -20)
-        const waveY = 125 - (clamped / 100) * 145
+        // Tide rises vertically inside both lines of letters (from 165 to -25)
+        const waveY = 165 - (clamped / 100) * 190
         if (wavesGroupRef.current) {
           wavesGroupRef.current.setAttribute('transform', `translate(0, ${waveY})`)
         }
@@ -242,49 +243,78 @@ export function Loader({ onComplete }) {
 
       {isReduced ? (
         <div className="loader__content loader__content--reduced">
+          {(logo || siteConfig.brand?.logo) && (
+            <div className="loader__logo-wrap">
+              <img
+                src={logo || siteConfig.brand?.logo}
+                alt={brandName}
+                className="loader__logo-img"
+              />
+            </div>
+          )}
           <h1 className="loader__brand-static">{brandName}</h1>
           <p className="loader__tagline">{tagline}</p>
         </div>
       ) : (
         <div className="loader__content">
+          {/* Logo Badge */}
+          {(logo || siteConfig.brand?.logo) && (
+            <div className="loader__logo-wrap">
+              <img
+                src={logo || siteConfig.brand?.logo}
+                alt={brandName}
+                className="loader__logo-img"
+              />
+            </div>
+          )}
+
           {/* Centred Brand Name with SVG wave fill clip */}
           <div className="loader__name-wrap">
             <svg
-              viewBox="0 0 600 160"
+              viewBox="0 0 680 180"
               className="loader__name-svg"
               aria-hidden="true"
               preserveAspectRatio="xMidYMid meet"
             >
               <defs>
-                <clipPath id="thira-loader-text-clip">
+                <clipPath id="gock-loader-text-clip">
                   <text
                     x="50%"
-                    y="54%"
+                    y="38%"
                     textAnchor="middle"
                     dominantBaseline="middle"
-                    className="loader__text-glyph"
+                    className="loader__text-glyph loader__text-glyph--title"
                   >
-                    {brandName}
+                    GOD'S OWN
+                  </text>
+                  <text
+                    x="50%"
+                    y="78%"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                    className="loader__text-glyph loader__text-glyph--sub"
+                  >
+                    COUNTRY KITCHEN
                   </text>
                 </clipPath>
               </defs>
 
               {/* Waves rising inside letters */}
-              <g clipPath="url(#thira-loader-text-clip)">
+              <g clipPath="url(#gock-loader-text-clip)">
                 <g ref={wavesGroupRef} className="loader__wave-fill-group">
                   {/* Layer 1: Sand wave behind */}
                   <path
                     ref={waveSandRef}
                     className="loader__wave-path loader__wave-sand"
                     fill={colors.sand}
-                    d="M 0 35 Q 75 12 150 35 T 300 35 T 450 35 T 600 35 T 750 35 T 900 35 T 1050 35 T 1200 35 L 1200 250 L 0 250 Z"
+                    d="M 0 35 Q 75 12 150 35 T 300 35 T 450 35 T 600 35 T 750 35 T 900 35 T 1050 35 T 1200 35 T 1350 35 L 1400 350 L 0 350 Z"
                   />
                   {/* Layer 2: Sea-foam wave in front */}
                   <path
                     ref={waveFoamRef}
                     className="loader__wave-path loader__wave-foam"
                     fill={colors.foam}
-                    d="M 0 42 Q 75 62 150 42 T 300 42 T 450 42 T 600 42 T 750 42 T 900 42 T 1050 42 T 1200 42 L 1200 250 L 0 250 Z"
+                    d="M 0 42 Q 75 62 150 42 T 300 42 T 450 42 T 600 42 T 750 42 T 900 42 T 1050 42 T 1200 42 T 1350 42 L 1400 350 L 0 350 Z"
                   />
                 </g>
               </g>
@@ -292,15 +322,27 @@ export function Loader({ onComplete }) {
               {/* Crisp outline lettering */}
               <text
                 x="50%"
-                y="54%"
+                y="38%"
                 textAnchor="middle"
                 dominantBaseline="middle"
-                className="loader__text-glyph loader__text-outline"
+                className="loader__text-glyph loader__text-glyph--title loader__text-outline"
                 fill="none"
                 stroke={colors.outline}
                 strokeWidth="1.5"
               >
-                {brandName}
+                GOD'S OWN
+              </text>
+              <text
+                x="50%"
+                y="78%"
+                textAnchor="middle"
+                dominantBaseline="middle"
+                className="loader__text-glyph loader__text-glyph--sub loader__text-outline"
+                fill="none"
+                stroke={colors.outline}
+                strokeWidth="1.2"
+              >
+                COUNTRY KITCHEN
               </text>
             </svg>
           </div>
