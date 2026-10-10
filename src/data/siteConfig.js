@@ -11,11 +11,6 @@ export const siteConfig = {
   demoMode: true,
   demoNote: 'Sample concept, not yet approved by the restaurant',
 
-  scene3D: {
-    enabled: true,
-    quality: 'auto', // 'auto' | 'high' | 'low' | 'off'
-  },
-
   loader: {
     brandName: "God's Own Country Kitchen",
     logo: withBase('logo.png'),
@@ -449,41 +444,34 @@ export const siteConfig = {
     },
     gallery: [
       {
-        src: withBase('images/signboard.png'),
-        fallbackSrc: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=85',
-        alt: "God's Own Country Kitchen signboard on North Cliff",
-        caption: "Owner's signboard · North Cliff near Helipad",
-        size: 'standard',
-      },
-      {
-        src: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=1000&q=85',
-        alt: 'Fresh Kerala fish curry cooked in traditional clay pot',
-        caption: 'Clay pot Kerala fish curry with coconut milk',
+        src: withBase('images/gallery/live-band.jpg'),
+        alt: "Live music band performing on stage at God's Own Country Kitchen",
+        caption: "Live band performance on the restaurant stage",
         size: 'tall',
       },
       {
-        src: 'https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1000&q=85',
-        alt: 'Waves crashing beneath the red laterite cliffs of Varkala',
-        caption: 'Arabian Sea cliff waves below North Cliff',
+        src: withBase('images/gallery/restaurant-facade.jpg'),
+        alt: "God's Own Country Kitchen Seafood Corner illuminated dining space",
+        caption: "Evening cliffside dining beneath warm lights",
         size: 'wide',
       },
       {
-        src: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1000&q=85',
-        alt: 'Golden sunset over the ocean horizon',
-        caption: 'Sunset over the Arabian Sea from the dining deck',
+        src: withBase('images/gallery/fresh-fish-display.jpg'),
+        alt: "Fresh Arabian Sea catch on ice display at God's Own Country Kitchen",
+        caption: "Daily fresh Arabian Sea catch display",
         size: 'standard',
       },
       {
-        src: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=85',
-        alt: 'Live acoustic guitar performance in ambient light',
-        caption: 'Live acoustic evening sessions',
-        size: 'tall',
+        src: withBase('images/gallery/coastal-dining.jpg'),
+        alt: "Warm wooden interior and glowing string lights at God's Own Country Kitchen",
+        caption: "Ambient indoor & verandah seating",
+        size: 'wide',
       },
       {
-        src: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1000&q=85',
-        alt: 'Coconut palms framing the coastline',
-        caption: 'Coastal palm fringe along North Cliff',
-        size: 'wide',
+        src: withBase('images/gallery/night-ambience.jpg'),
+        alt: "Night neon signage and entrance of God's Own Country Seafood Corner",
+        caption: "Vibrant North Cliff evening ambience",
+        size: 'tall',
       },
     ],
   },

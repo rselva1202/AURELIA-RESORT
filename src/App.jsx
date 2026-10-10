@@ -22,8 +22,6 @@ import {
 } from './components/ExperienceSections'
 import { CustomCursor, Lightbox, Loader, WaveDivider, WhatsAppFloat } from './components/UI'
 
-const Scene3DContainer = lazy(() => import('./components/Scene3D/Scene3DContainer'))
-
 gsap.registerPlugin(ScrollTrigger)
 
 export default function App() {
@@ -34,17 +32,6 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [lightbox, setLightbox] = useState(null)
   const [reservationIntent, setReservationIntent] = useState(null)
-  const [scene3DActive, setScene3DActive] = useState(
-    () => siteConfig.scene3D?.enabled !== false && !reducedMotion
-  )
-
-  useEffect(() => {
-    const is3D = scene3DActive && !reducedMotion
-    document.body.classList.toggle('has-scene-3d', is3D)
-    return () => {
-      document.body.classList.remove('has-scene-3d')
-    }
-  }, [scene3DActive, reducedMotion])
 
   useEffect(() => {
     document.body.classList.toggle('loader-locked', loading)
@@ -205,16 +192,6 @@ export default function App() {
   return (
     <>
       {loading && <Loader onComplete={() => setLoading(false)} />}
-      {!loading && scene3DActive && !reducedMotion && (
-        <Suspense fallback={null}>
-          <Scene3DContainer
-            scrollProgressRef={scrollProgressRef}
-            enabled={scene3DActive}
-            qualitySetting={siteConfig.scene3D?.quality || 'auto'}
-            reducedMotion={reducedMotion}
-          />
-        </Suspense>
-      )}
       <div className="progress-bar" aria-hidden="true" />
       <Header menuOpen={menuOpen} onMenuToggle={setMenuOpen} />
       <main>
@@ -268,10 +245,7 @@ export default function App() {
       </main>
 
       {/* 12. Footer */}
-      <FooterSection
-        scene3DActive={scene3DActive && !reducedMotion}
-        onToggle3D={() => setScene3DActive((prev) => !prev)}
-      />
+      <FooterSection />
 
       <WhatsAppFloat />
       <Lightbox image={lightbox} onClose={() => setLightbox(null)} />

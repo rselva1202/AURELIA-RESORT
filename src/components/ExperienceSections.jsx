@@ -378,7 +378,7 @@ export function ContactSection({ reservationIntent }) {
   )
 }
 
-export function FooterSection({ scene3DActive = false, onToggle3D }) {
+export function FooterSection() {
   return (
     <footer className="footer section-ink">
       <div className="footer__top page-shell">
@@ -401,19 +401,6 @@ export function FooterSection({ scene3DActive = false, onToggle3D }) {
       {siteConfig.demoMode && (
         <div className="footer__demo-disclaimer page-shell" role="note">
           <p>⚠️ <strong>{siteConfig.demoNote || 'Sample concept, not yet approved by the restaurant'}</strong>. All trademarks, names, and images belong to their respective owners. Details, hours and prices are placeholders to be confirmed by the owner.</p>
-        </div>
-      )}
-
-      {onToggle3D && (
-        <div className="footer__motion-control page-shell">
-          <button
-            type="button"
-            className="motion-toggle-btn"
-            onClick={onToggle3D}
-            aria-pressed={scene3DActive}
-          >
-            {scene3DActive ? '✦ 3D Scene Active · Switch to 2D' : '✧ 3D Scene Off · Switch to 3D'}
-          </button>
         </div>
       )}
 

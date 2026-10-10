@@ -63,105 +63,7 @@ body.has-scene-3d .hero__media {
   opacity: 0.38;
   mix-blend-mode: overlay;
 }
-body.has-scene-3d .section-cream {
-  background: rgba(250, 246, 238, 0.86);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-body.has-scene-3d .section-sand {
-  background: rgba(243, 233, 215, 0.86);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-body.has-scene-3d .section-sage {
-  background: rgba(220, 238, 235, 0.86);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-body.has-scene-3d .section-ink,
-body.has-scene-3d .section-dark {
-  background: rgba(11, 60, 73, 0.82);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-body.has-scene-3d .section-terracotta {
-  background: rgba(181, 83, 45, 0.90);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-body.has-scene-3d .lineup-card {
-  background: rgba(250, 246, 238, 0.94);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 16px 40px rgba(11, 60, 73, 0.12);
-}
-body.has-scene-3d .wave-divider {
-  opacity: 0.94;
-}
 
-@media (max-width: 768px) {
-  body.has-scene-3d .section-cream {
-    background: rgba(250, 246, 238, 0.94);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-  body.has-scene-3d .section-sand {
-    background: rgba(243, 233, 215, 0.94);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-  body.has-scene-3d .section-sage {
-    background: rgba(220, 238, 235, 0.94);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-  body.has-scene-3d .section-ink,
-  body.has-scene-3d .section-dark {
-    background: rgba(11, 60, 73, 0.92);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-  body.has-scene-3d .section-terracotta {
-    background: rgba(181, 83, 45, 0.95);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-  body.has-scene-3d .lineup-card {
-    background: rgba(250, 246, 238, 0.96);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-  }
-}
-
-/* Footer 3D / Reduce motion toggle */
-.footer__motion-control {
-  display: flex;
-  justify-content: center;
-  padding-top: 24px;
-}
-.motion-toggle-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 18px;
-  border: 1px solid rgba(247, 244, 238, 0.28);
-  border-radius: 999px;
-  background: rgba(11, 60, 73, 0.45);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: var(--sand);
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.motion-toggle-btn:hover {
-  border-color: var(--sea-foam);
-  color: var(--cream);
-  background: rgba(127, 200, 192, 0.15);
-}
 
 /* Rising tide line progress bar */
 .progress-bar { position: fixed; z-index: 150; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--ocean-teal), var(--sea-foam), var(--laterite)); box-shadow: 0 0 10px rgba(127, 200, 192, 0.55); transform: scaleX(0); transform-origin: left center; pointer-events: none; }
@@ -593,7 +495,7 @@ body.menu-open .whatsapp-float { opacity: 0; pointer-events: none; transition: o
 .hero__content { position: relative; z-index: 1; padding-bottom: clamp(170px, 20vh, 240px); }
 .hero__eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 35px; }
 .hero__line { width: 42px; height: 1px; background: var(--terracotta); }
-.hero h1 { max-width: 10ch; margin: 0; font-family: var(--display); font-size: clamp(4rem, 9.8vw, 10.8rem); font-weight: 400; letter-spacing: -.065em; line-height: .82; }
+.hero h1 { max-width: 10ch; margin: 0; font-family: var(--display); font-size: clamp(3.4rem, 8.2vw, 9.2rem); font-weight: 400; letter-spacing: -.06em; line-height: .86; }
 .hero-copy-line { display: block; overflow: hidden; }
 .hero-copy-line--indent { margin-left: clamp(22px, 8vw, 120px); color: var(--sand); font-style: italic; }
 .hero__subline { max-width: 35ch; margin: 38px 0 0 clamp(22px, 8vw, 120px); color: rgba(247,244,238,.78); font-size: .93rem; line-height: 1.7; }
@@ -724,17 +626,14 @@ body.menu-open .whatsapp-float { opacity: 0; pointer-events: none; transition: o
 /* Gallery */
 .gallery { padding: clamp(100px, 13vw, 200px) 0 44px; }
 .gallery > .page-shell:first-child { margin-bottom: 82px; }
-.gallery-grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 8px; gap: 16px; }
-.gallery-item { position: relative; display: block; overflow: hidden; padding: 0; border: 0; background: none; cursor: pointer; }
+.gallery-grid { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: 8px; gap: 20px; }
+.gallery-item { position: relative; display: block; overflow: hidden; padding: 0; border: 0; background: none; cursor: pointer; border-radius: 4px; }
 .gallery-item .image-reveal { position: absolute; inset: 0; }
-.gallery-item--tall { grid-column: span 4; grid-row: span 67; }
-.gallery-item--wide { grid-column: span 5; grid-row: span 47; }
-.gallery-item--standard { grid-column: span 3; grid-row: span 42; }
-.gallery-item:nth-child(2) { margin-top: 64px; }
-.gallery-item:nth-child(3) { margin-top: 18px; }
-.gallery-item:nth-child(4) { grid-column: span 5; margin-top: -42px; }
-.gallery-item:nth-child(5) { grid-column: span 3; margin-top: 25px; }
-.gallery-item:nth-child(6) { grid-column: span 4; margin-top: 82px; }
+.gallery-item:nth-child(1) { grid-column: span 5; grid-row: span 65; }
+.gallery-item:nth-child(2) { grid-column: span 7; grid-row: span 45; }
+.gallery-item:nth-child(3) { grid-column: span 7; grid-row: span 38; margin-top: -100px; }
+.gallery-item:nth-child(4) { grid-column: span 7; grid-row: span 50; }
+.gallery-item:nth-child(5) { grid-column: span 5; grid-row: span 65; margin-top: -90px; }
 .gallery__footer { display: flex; justify-content: space-between; padding-top: 28px; color: var(--muted-ink); font-size: .57rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
 
 /* Reviews */
@@ -893,7 +792,7 @@ body.menu-open .whatsapp-float { opacity: 0; pointer-events: none; transition: o
   .site-header__phone { display: none; }
   .hero__content { padding-bottom: 224px; }
   .hero__eyebrow { margin-bottom: 27px; }
-  .hero h1 { font-size: clamp(3.8rem, 18vw, 6.2rem); }
+  .hero h1 { font-size: clamp(3.2rem, 15vw, 5.2rem); }
   .hero__subline { margin-top: 28px; margin-left: 0; font-size: .78rem; }
   .hero__actions { align-items: flex-start; flex-direction: column; gap: 23px; margin-top: 28px; margin-left: 0; }
   .hero__availability { width: 100%; padding: 16px 0; }
@@ -928,14 +827,13 @@ body.menu-open .whatsapp-float { opacity: 0; pointer-events: none; transition: o
   .reviews-counter { align-items: flex-start; }
   .events__grid { gap: 36px; }
   .gallery > .page-shell:first-child { margin-bottom: 50px; }
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 70px; gap: 9px; }
-  .gallery-item--tall, .gallery-item--wide, .gallery-item--standard, .gallery-item:nth-child(4), .gallery-item:nth-child(5), .gallery-item:nth-child(6) { grid-column: span 1; grid-row: span 4; margin-top: 0; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 70px; gap: 10px; }
+  .gallery-item { grid-column: span 1; grid-row: span 4; margin-top: 0 !important; }
   .gallery-item:nth-child(1) { grid-row: span 6; }
-  .gallery-item:nth-child(2) { grid-row: span 4; }
+  .gallery-item:nth-child(2) { grid-row: span 5; }
   .gallery-item:nth-child(3) { grid-row: span 5; }
   .gallery-item:nth-child(4) { grid-row: span 5; }
-  .gallery-item:nth-child(5) { grid-row: span 5; }
-  .gallery-item:nth-child(6) { grid-row: span 6; }
+  .gallery-item:nth-child(5) { grid-column: span 2; grid-row: span 6; }
   .gallery__footer { display: grid; gap: 8px; font-size: .48rem; }
   .reviews__inner .section-heading { margin-bottom: 65px; }
   .review-card { padding: 48px 0 0; }

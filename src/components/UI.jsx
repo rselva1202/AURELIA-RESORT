@@ -2,7 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import { siteConfig } from '../data/siteConfig'
 import brandLogo from '../assets/logo.png'
 
-const responsiveSrcSet = (src) => [600, 900, 1400].map((width) => src.replace(/([?&])w=\d+/, `$1w=${width}`)).join(', ')
+const responsiveSrcSet = (src) => {
+  if (!src || !src.includes('w=')) return undefined
+  return [600, 900, 1400].map((width) => `${src.replace(/([?&])w=\d+/, `$1w=${width}`)} ${width}w`).join(', ')
+}
 
 export function ArrowIcon({ direction = 'right' }) {
   return <span className={`arrow-icon arrow-icon--${direction}`} aria-hidden="true">↗</span>
