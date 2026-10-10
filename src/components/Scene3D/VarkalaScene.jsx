@@ -15,7 +15,7 @@ export default function VarkalaScene({ quality = 'high', scrollProgressRef }) {
     { p: 0.00, pos: new THREE.Vector3(0.0, 4.6, 12.0), look: new THREE.Vector3(0.0, 1.4, -20.0) }, // Hero: High cliff overview
     { p: 0.15, pos: new THREE.Vector3(1.5, 4.2, 9.5),  look: new THREE.Vector3(-0.5, 1.2, -18.0) },
     { p: 0.40, pos: new THREE.Vector3(3.2, 3.6, 5.5),  look: new THREE.Vector3(-1.2, 0.9, -15.0) }, // About: Along cliff edge
-    { p: 0.65, pos: new THREE.Vector3(1.0, 1.6, 3.2),  look: new THREE.Vector3(0.0, 0.5, -14.0) },  // Rooms: Dipping to sea level
+    { p: 0.65, pos: new THREE.Vector3(1.0, 1.6, 3.2),  look: new THREE.Vector3(0.0, 0.5, -14.0) },  // Midday: Dipping to sea level
     { p: 0.85, pos: new THREE.Vector3(-1.8, 2.6, 4.8), look: new THREE.Vector3(0.2, 0.4, -22.0) },  // Sunset: Glancing west
     { p: 1.00, pos: new THREE.Vector3(0.0, 3.4, 7.0),  look: new THREE.Vector3(0.0, 1.0, -16.0) },  // Night: Calm sea & stars
   ], [])
@@ -24,7 +24,7 @@ export default function VarkalaScene({ quality = 'high', scrollProgressRef }) {
   const fogColors = useMemo(() => ({
     hero: new THREE.Color('#1F6370'),
     about: new THREE.Color('#257180'),
-    rooms: new THREE.Color('#1C6170'),
+    midday: new THREE.Color('#1C6170'),
     sunset: new THREE.Color('#8C3428'),
     night: new THREE.Color('#061A24'),
   }), [])
@@ -85,10 +85,10 @@ export default function VarkalaScene({ quality = 'high', scrollProgressRef }) {
         fogCol = new THREE.Color().lerpColors(fogColors.hero, fogColors.about, Math.max(0, factor))
       } else if (p < 0.65) {
         const factor = (p - 0.40) / 0.25
-        fogCol = new THREE.Color().lerpColors(fogColors.about, fogColors.rooms, factor)
+        fogCol = new THREE.Color().lerpColors(fogColors.about, fogColors.midday, factor)
       } else if (p < 0.85) {
         const factor = (p - 0.65) / 0.20
-        fogCol = new THREE.Color().lerpColors(fogColors.rooms, fogColors.sunset, factor)
+        fogCol = new THREE.Color().lerpColors(fogColors.midday, fogColors.sunset, factor)
       } else {
         const factor = (p - 0.85) / 0.15
         fogCol = new THREE.Color().lerpColors(fogColors.sunset, fogColors.night, factor)

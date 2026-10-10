@@ -7,16 +7,19 @@ const resolveBaseUrl = () => {
 const withBase = (path) => `${resolveBaseUrl().replace(/\/$/, '')}/${path.replace(/^\//, '')}`
 
 export const siteConfig = {
+  mode: 'restaurant',
   demoMode: true,
-  demoNote: 'Sample website demo',
+  demoNote: 'Sample concept, not yet approved by the restaurant',
+
   scene3D: {
     enabled: true,
     quality: 'auto', // 'auto' | 'high' | 'low' | 'off'
   },
+
   loader: {
     brandName: "God's Own Country Kitchen",
     logo: withBase('logo.png'),
-    tagline: 'Varkala · Kerala',
+    tagline: 'North Cliff · Varkala · Kerala',
     colors: {
       bg: '#0B3C49',
       foam: '#7FC8C0',
@@ -35,38 +38,44 @@ export const siteConfig = {
       reducedMotionDuration: 800,
     },
   },
+
   brand: {
     name: "God's Own Country Kitchen",
     shortName: "God's Own Country Kitchen",
+    descriptor: 'Seafood · Live Music · Sea Views',
     logo: withBase('logo.png'),
     tagline: 'Where the cliff meets the sea.',
     taglineLines: ['Where the cliff', 'meets the sea.'],
-    descriptor: 'Seafood Corner · Varkala',
-    title: 'Where the cliff meets the sea.',
-    subline: 'A cliff-top sanctuary above the Arabian Sea. Slow mornings, salt air, and unobstructed sunset views just a short walk from the beach.',
+    heroHeadline: 'Fresh catches, cliff sunsets & live music above the Arabian Sea.',
+    heroSubline: 'Perched on North Cliff near the Helipad in Varkala. Ocean breezes, authentic Kerala coastal flavours, and acoustic evenings overlooking the horizon.',
     city: 'Varkala, Kerala',
     cityName: 'Varkala',
-    locationLine: 'Varkala, Kerala',
+    locationLine: 'North Cliff, near Helipad, Varkala, Kerala',
+    landmark: 'Near the Helipad',
     waterBodyName: 'Arabian Sea',
-    coordinates: '8.7379° N, 76.7025° E',
-    phone: '+91 98470 12345',
-    phoneHref: 'tel:+919847012345',
-    whatsapp: '919847012345',
-    whatsappLabel: '+91 98470 12345',
-    address: 'North Cliff, Kurakkanni, Varkala, Kerala 695141',
-    checkIn: '2:00 PM',
-    checkOut: '11:00 AM',
-    hours: 'Front desk · 24 hours',
-    email: 'stay@godsowncountrykitchen.com',
-    mapsUrl: 'https://maps.google.com/?q=North+Cliff+Varkala+Kerala',
+    coordinates: '8.7381° N, 76.7028° E',
+    phone: 'Phone: to be confirmed',
+    phoneHref: 'https://wa.me/918589829935',
+    whatsapp: '918589829935',
+    whatsappLabel: '+91 85898 29935',
+    address: 'North Cliff, near Helipad, Varkala, Kerala 695141',
+    hours: 'Hours: to be confirmed',
+    owner: 'Owner: to be confirmed',
+    parking: 'Parking: to be confirmed',
+    email: 'hello@godsowncountrykitchen.sample',
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=God's+Own+Country+Kitchen+North+Cliff+Varkala",
   },
+
   seo: {
-    title: "God's Own Country Kitchen — Seafood Corner & Stay | Varkala, Kerala",
-    description: "God's Own Country Kitchen is a cliff-top boutique dining and resort stay demo in Varkala, Kerala, perched above the Arabian Sea.",
-    ogDescription: "Perched on Varkala’s red cliffs above the Arabian Sea. Discover God's Own Country Kitchen in Kerala.",
-    ogImage: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1200&q=80',
+    title: "God's Own Country Kitchen: Seafood, Live Music & Sea Views | Varkala",
+    description: "Sample concept for God's Own Country Kitchen on North Cliff near the Helipad, Varkala. Seafood-focused dining, outdoor seating, vegetarian options & live music.",
+    ogTitle: "God's Own Country Kitchen: Seafood, Live Music & Sea Views | Varkala",
+    ogDescription: "A cliff-top dining experience in Varkala overlooking the Arabian Sea. Fresh seafood, live music sessions, and outdoor sunset seating.",
+    ogImage: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=1600&q=85',
     themeColor: '#0B3C49',
+    robots: 'noindex,nofollow',
   },
+
   theme: {
     ink: '#0B3C49',
     terracotta: '#B5532D',
@@ -76,181 +85,478 @@ export const siteConfig = {
     mist: '#DCEEEB',
     coral: '#F4906F',
   },
-  stats: [
-    { value: '14', label: 'rooms & cottages' },
-    { value: '06', label: 'years of welcome' },
-    { value: '4.9', label: 'guest rating (sample)' },
-  ],
-  amenities: [
-    { icon: '☼', name: 'Sunrise yoga deck' },
-    { icon: '♨', name: 'Ayurveda massage' },
-    { icon: '✦', name: 'Sea-view cafe' },
-    { icon: '⌂', name: 'Airport & railway pickup' },
-    { icon: '✧', name: 'Scooter rental' },
-    { icon: '◌', name: 'Kerala cooking class' },
-    { icon: '⌁', name: 'High-speed Wi-Fi' },
-    { icon: '◷', name: '24-hour reception' },
-  ],
-  rooms: [
+
+  // Service highlights (Section 3)
+  highlights: [
     {
-      id: 'cliff-view-deluxe',
-      eyebrow: '01 · The ocean terrace',
-      name: 'Cliff View Deluxe',
-      price: '₹7,800',
-      suffix: 'per night',
-      description: 'Front-row seats to the Arabian Sea. Linen curtains, private balcony, and the rhythmic sound of waves below.',
-      size: '340 sq ft',
-      guests: '2 guests',
-      amenities: ['King bed', 'Sea-facing balcony', 'Ensuite bath', 'Breakfast included'],
-      image: {
-        src: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=85',
-        alt: 'Bright seaside king bedroom with sea breeze and natural linen',
-      },
+      id: 'outdoor-seating',
+      title: 'Outdoor Seating',
+      subtitle: 'Cliff-edge tables with open Arabian Sea views',
+      description: 'Dine in the open coastal air where the sea breeze keeps the cliff cool, and the sky turns crimson at sunset.',
+      tag: 'Sea Views',
+      icon: '☼',
     },
     {
-      id: 'palm-garden-cottage',
-      eyebrow: '02 · The quiet grove',
-      name: 'Palm Garden Cottage',
-      price: '₹6,500',
-      suffix: 'per night',
-      description: 'Tucked behind coconut palms with a private sit-out, hammock, and the calming rustle of coastal fronds.',
-      size: '380 sq ft',
-      guests: '2 guests',
-      amenities: ['Queen bed', 'Garden hammock', 'Verandah', 'Breakfast included'],
-      image: {
-        src: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1200&q=85',
-        alt: 'Tranquil garden cottage framed by swaying coconut palms',
-      },
+      id: 'vegetarian-options',
+      title: 'Vegetarian Options',
+      subtitle: 'Rich Kerala vegetarian curries, stews & breads',
+      description: 'Dedicated vegetarian recipes cooked with fresh local coconut, ground spices, traditional appams and Malabar parottas.',
+      tag: 'Fresh & Varied',
+      icon: '🌿',
     },
     {
-      id: 'sunset-suite',
-      eyebrow: '03 · The panoramic perch',
-      name: 'Sunset Suite',
-      price: '₹11,200',
-      suffix: 'per night',
-      description: 'Our premier rooftop suite featuring wrap-around glass, daybeds, and unobstructed golden hour vistas.',
-      size: '560 sq ft',
-      guests: '3 guests',
-      amenities: ['King bed', 'Sunset terrace', 'Soaking tub', 'Breakfast included'],
-      image: {
-        src: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1200&q=85',
-        alt: 'Spacious cliff-front suite with panoramic Arabian Sea sunset terrace',
-      },
-    },
-    {
-      id: 'beachside-family',
-      eyebrow: '04 · The coastal sanctuary',
-      name: 'Beachside Family Room',
-      price: '₹9,600',
-      suffix: 'per night',
-      description: 'Spacious dual-bedroom layout designed for families and friends, steps from the coastal cliff trail.',
-      size: '640 sq ft',
-      guests: '4 guests',
-      amenities: ['Two double beds', 'Private lounge', 'Courtyard access', 'Breakfast included'],
-      image: {
-        src: 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1200&q=85',
-        alt: 'Comfortable seaside family room with coastal views and relaxed seating',
-      },
+      id: 'live-music',
+      title: 'Live Music',
+      subtitle: 'Acoustic sessions & seaside rhythms',
+      description: 'Unwind as evening sets in with acoustic musicians playing against the sound of breaking waves on North Cliff.',
+      tag: 'Every Evening',
+      icon: '♪',
     },
   ],
+
+  // Menu (Section 4) - strictly sample items with no invented prices
+  menu: {
+    badge: 'Sample menu',
+    title: 'The Cliff Kitchen Menu',
+    subtitle: 'Fresh catches from Arabian Sea waters, traditional clay pot preparations, and vegetarian delicacies. All items and prices subject to daily catch and kitchen selection.',
+    categories: [
+      { id: 'seafood', name: 'Seafood' },
+      { id: 'kerala-classics', name: 'Kerala Classics' },
+      { id: 'vegetarian', name: 'Vegetarian' },
+      { id: 'drinks-desserts', name: 'Drinks & Desserts' },
+    ],
+    items: [
+      // Seafood
+      {
+        id: 'catch-of-the-day',
+        category: 'seafood',
+        name: 'Fresh Catch of the Day',
+        description: 'Locally landed Arabian Sea fish grilled or pan-fried with coastal Kerala spices, curry leaves and lemon.',
+        price: 'Price on menu',
+        veg: false,
+        highlight: true,
+      },
+      {
+        id: 'malabar-prawn-roast',
+        category: 'seafood',
+        name: 'Malabar Prawn Roast',
+        description: 'Tender sea prawns slow-cooked in thick caramelised shallots, crushed pepper, garlic and roasted coconut slices.',
+        price: 'Price on menu',
+        veg: false,
+      },
+      {
+        id: 'karimeen-pollichathu',
+        category: 'seafood',
+        name: 'Karimeen Pollichathu',
+        description: 'Pearl spot fish marinated in spicy red masala, wrapped in fresh banana leaf and slow-griddled to perfection.',
+        price: 'Price on menu',
+        veg: false,
+        highlight: true,
+      },
+      {
+        id: 'squid-pepper-fry',
+        category: 'seafood',
+        name: 'Squid Pepper Fry',
+        description: 'Crisp squid rings tossed with crushed Tellicherry black peppercorns, curry leaves, and slivered coconut.',
+        price: 'Price on menu',
+        veg: false,
+      },
+      {
+        id: 'kerala-fish-curry',
+        category: 'seafood',
+        name: 'Traditional Kerala Fish Curry',
+        description: 'Simmered in earthen pots with fragrant cocum (kudampuli), freshly pressed coconut milk, ginger and green chillies.',
+        price: 'Price on menu',
+        veg: false,
+      },
+      {
+        id: 'crab-masala',
+        category: 'seafood',
+        name: 'Coastal Crab Masala',
+        description: 'Whole sea crab cracked and simmered in an aromatic dark roasted onion-coriander gravy.',
+        price: 'Price on menu',
+        veg: false,
+      },
+
+      // Kerala Classics
+      {
+        id: 'appam-stew',
+        category: 'kerala-classics',
+        name: 'Lacy Appams with Vegetable Stew',
+        description: 'Crispy-edged fermented rice hoppers served alongside creamy coconut milk stew scented with cardamom and cinnamon.',
+        price: 'Price on menu',
+        veg: true,
+        highlight: true,
+      },
+      {
+        id: 'malabar-parotta',
+        category: 'kerala-classics',
+        name: 'Flaky Malabar Parotta Basket',
+        description: 'Hand-layered, griddled golden parottas served hot with house spiced salna.',
+        price: 'Price on menu',
+        veg: true,
+      },
+      {
+        id: 'kerala-chicken-sukka',
+        category: 'kerala-classics',
+        name: 'Kerala Chicken Sukka',
+        description: 'Country chicken pan-roasted dry with dry-roasted whole spices, coconut pieces, and sweet shallots.',
+        price: 'Price on menu',
+        veg: false,
+      },
+      {
+        id: 'thalassery-biryani',
+        category: 'kerala-classics',
+        name: 'Thalassery Dum Biryani',
+        description: 'Short-grain Kaima rice layered with ghee, fragrant spices, fried onions and raisins.',
+        price: 'Price on menu',
+        veg: false,
+      },
+
+      // Vegetarian
+      {
+        id: 'kerala-veg-curry',
+        category: 'vegetarian',
+        name: 'Nadan Vegetable Curry',
+        description: 'Garden vegetables simmered in a spiced coconut and cumin paste, tempered with mustard seeds and curry leaves.',
+        price: 'Price on menu',
+        veg: true,
+        highlight: true,
+      },
+      {
+        id: 'paneer-ghee-roast',
+        category: 'vegetarian',
+        name: 'Paneer Ghee Roast',
+        description: 'Fresh paneer cubes seared in spiced Byadgi chilli paste, fresh curry leaves, and coastal clarified butter.',
+        price: 'Price on menu',
+        veg: true,
+      },
+      {
+        id: 'mushroom-pepper-fry',
+        category: 'vegetarian',
+        name: 'Mushroom Pepper Fry',
+        description: 'Button mushrooms sauteed with freshly crushed black pepper, capsicum and golden fried onions.',
+        price: 'Price on menu',
+        veg: true,
+      },
+      {
+        id: 'avial-steamed-rice',
+        category: 'vegetarian',
+        name: 'Traditional Kerala Avial',
+        description: 'Medley of native coastal vegetables tossed in coarse coconut-curd sauce and drizzled with raw cold-pressed coconut oil.',
+        price: 'Price on menu',
+        veg: true,
+      },
+      {
+        id: 'dal-tadka-ghee',
+        category: 'vegetarian',
+        name: 'Yellow Dal Tadka',
+        description: 'Slow-cooked yellow lentils tempered with cumin, garlic, whole dried red chillies and fresh coriander.',
+        price: 'Price on menu',
+        veg: true,
+      },
+
+      // Drinks & Desserts
+      {
+        id: 'tender-coconut-cooler',
+        category: 'drinks-desserts',
+        name: 'Fresh Tender Coconut Water',
+        description: 'Straight from local Varkala palm trees, served chilled with fresh mint and lime.',
+        price: 'Price on menu',
+        veg: true,
+        highlight: true,
+      },
+      {
+        id: 'kerala-spiced-buttermilk',
+        category: 'drinks-desserts',
+        name: 'Sambharam (Spiced Buttermilk)',
+        description: 'Cooling churned curd infused with crushed ginger, shallots, green chillies and fresh curry leaves.',
+        price: 'Price on menu',
+        veg: true,
+      },
+      {
+        id: 'mango-lassi',
+        category: 'drinks-desserts',
+        name: 'Alphonso Mango Lassi',
+        description: 'Rich creamy yogurt blended with real mango pulp and cardamom.',
+        price: 'Price on menu',
+        veg: true,
+      },
+      {
+        id: 'elaneer-payasam',
+        category: 'drinks-desserts',
+        name: 'Tender Coconut Payasam',
+        description: 'Classic warm sweet dessert made with tender coconut pulp, coconut milk, and crushed cashew nuts.',
+        price: 'Price on menu',
+        veg: true,
+      },
+    ],
+  },
+
+  // Live music lineup (Section 5)
+  // Reusing horizontal scroll. 7 day cards. Highlight today's card.
+  liveMusic: {
+    title: 'Live Music by the Sea',
+    eyebrow: 'Weekly Sunset & Evening Lineup',
+    description: 'Every evening, acoustic chords and rhythmic coastal melodies accompany the sound of breaking waves on North Cliff.',
+    scheduleNote: 'Artist names and performance times: to be confirmed. Check with staff or enquire via WhatsApp for tonight’s set.',
+    days: [
+      {
+        dayIndex: 1, // Monday
+        dayName: 'Monday',
+        genre: 'Acoustic Sunset',
+        time: 'Evening · Times: to be confirmed',
+        artist: 'Artist lineup: to be confirmed',
+        description: 'Gentle acoustic guitar and slow coastal melodies as the sun sinks into the Arabian Sea.',
+      },
+      {
+        dayIndex: 2, // Tuesday
+        dayName: 'Tuesday',
+        genre: 'Coastal Folk & Strings',
+        time: 'Evening · Times: to be confirmed',
+        artist: 'Artist lineup: to be confirmed',
+        description: 'Soulful string acoustic sets blending regional rhythms and international classics.',
+      },
+      {
+        dayIndex: 3, // Wednesday
+        dayName: 'Wednesday',
+        genre: 'Seaside Blues',
+        time: 'Evening · Times: to be confirmed',
+        artist: 'Artist lineup: to be confirmed',
+        description: 'Warm blues and acoustic rock ballads under the North Cliff lantern lights.',
+      },
+      {
+        dayIndex: 4, // Thursday
+        dayName: 'Thursday',
+        genre: 'Indie & Unplugged',
+        time: 'Evening · Times: to be confirmed',
+        artist: 'Artist lineup: to be confirmed',
+        description: 'Intimate unplugged sessions celebrating vocal harmonies and indie favourites.',
+      },
+      {
+        dayIndex: 5, // Friday
+        dayName: 'Friday',
+        genre: 'Kerala Fusion & Rhythms',
+        time: 'Evening · Times: to be confirmed',
+        artist: 'Artist lineup: to be confirmed',
+        description: 'Vibrant percussion and acoustic arrangements to kick off the coastal weekend.',
+      },
+      {
+        dayIndex: 6, // Saturday
+        dayName: 'Saturday',
+        genre: 'Weekend Live Showcase',
+        time: 'Evening · Times: to be confirmed',
+        artist: 'Artist lineup: to be confirmed',
+        description: 'Our headline weekend session with full acoustic ensemble overlooking the illuminated shoreline.',
+      },
+      {
+        dayIndex: 0, // Sunday
+        dayName: 'Sunday',
+        genre: 'Sundowner Jam',
+        time: 'Sunset & Evening · Times: to be confirmed',
+        artist: 'Artist lineup: to be confirmed',
+        description: 'Relaxed golden hour acoustic jam session wrapping up the week with chilled seaside vibes.',
+      },
+    ],
+  },
+
+  // Outdoor Seating & Sea View (Section 6)
+  outdoorSeating: {
+    eyebrow: 'Cliffside Atmosphere',
+    title: 'Tables with unobstructed Arabian Sea views.',
+    body: 'Perched high above the shoreline along Varkala’s famous red laterite cliffs, our outdoor dining area provides panoramic views across the Arabian Sea. Enjoy the ocean breeze by day and ambient lanterns by night.',
+    features: [
+      'Unobstructed sunset views over the water',
+      'Open-air sea breeze tables',
+      'Ambient cliffside night lanterns',
+      'Steps away from the Varkala Helipad',
+    ],
+    image: {
+      src: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=85',
+      alt: 'Open-air cliffside restaurant dining with sea breeze and ocean horizon view',
+    },
+  },
+
+  // Reviews (Section 7)
+  reviewsData: {
+    counter: 3800,
+    counterSuffix: '+',
+    counterLabel: 'Google Reviews',
+    eyebrow: 'Kind words from our guests',
+    title: 'Loved by over 3,800 diners on Google.',
+    reviews: [
+      {
+        quote: 'The fresh grilled fish with Kerala masala right next to the cliff edge was unforgettable. Live acoustic guitar at sunset made the evening pure magic.',
+        author: 'Sample review · Rahul S.',
+        source: 'Google review (sample)',
+      },
+      {
+        quote: 'Incredible vegetarian options alongside the seafood! The appams and coconut stew were delicious, and the outdoor sea view is second to none.',
+        author: 'Sample review · Emily T.',
+        source: 'Google review (sample)',
+      },
+      {
+        quote: 'Great vibe on North Cliff near the Helipad. Wonderful live music, attentive team, and watching the sunset with fresh tender coconut water was bliss.',
+        author: 'Sample review · Anand & Divya M.',
+        source: 'Google review (sample)',
+      },
+    ],
+  },
+
+  // Events & Groups (Section 8)
+  events: {
+    eyebrow: 'Gatherings & Celebrations',
+    title: 'Birthdays, group dinners & private celebrations.',
+    body: 'Whether you are planning a memorable birthday dinner, a family seafood feast, or a group table for an evening of live music, we are happy to arrange special seating by the sea.',
+    options: [
+      {
+        title: 'Group Tables',
+        detail: 'Comfortable communal tables for friends and travel groups with custom seafood platters.',
+      },
+      {
+        title: 'Birthday Celebrations',
+        detail: 'Cliffside sunset tables with candlelit lanterns and celebratory desserts.',
+      },
+      {
+        title: 'Private Sunset Parties',
+        detail: 'Reserved outdoor corners with live music and tailored Kerala feast menus.',
+      },
+    ],
+  },
+
+  // Gallery (Section 9)
   images: {
     hero: {
       src: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=2200&q=90',
-      alt: 'Golden sunset over the Arabian Sea along the Varkala cliff',
+      alt: 'Arabian Sea sunset glowing over Varkala cliff',
+      width: 2200,
+      height: 1200,
     },
     about: {
-      src: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1400&q=85',
-      alt: 'Red laterite cliffs and sandy coastline of Varkala, Kerala',
+      src: withBase('images/signboard.png'),
+      fallbackSrc: 'https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&w=1400&q=85',
+      alt: "God's Own Country Kitchen Seafood Corner entrance on North Cliff",
+      width: 1400,
+      height: 900,
+      caption: "Restaurant Entrance Signboard · North Cliff, Varkala",
     },
-    dining: {
-      src: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=1600&q=85',
-      alt: 'Traditional Kerala seafood curry served with fresh coconut and spices',
+    outdoor: {
+      src: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=85',
+      alt: 'Outdoor cliff-edge tables overlooking the Arabian Sea',
+      width: 1600,
+      height: 1000,
+      caption: 'Cliffside outdoor seating with sea breeze',
     },
     gallery: [
-      { src: 'https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1000&q=85', alt: 'Waves breaking against the red laterite cliffs of Varkala', size: 'tall' },
-      { src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=85', alt: 'Golden sand and turquoise waves of Papanasam Beach', size: 'wide' },
-      { src: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1000&q=85', alt: 'Arabian Sea horizon glowing during golden hour', size: 'standard' },
-      { src: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1000&q=85', alt: 'Coconut palms leaning over the coastal cliff edge', size: 'wide' },
-      { src: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=85', alt: 'Open-air cliffside cafe with wooden tables and sea view', size: 'standard' },
-      { src: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1000&q=85', alt: 'Morning yoga practice on the wooden deck overlooking the ocean', size: 'tall' },
+      {
+        src: withBase('images/signboard.png'),
+        fallbackSrc: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=85',
+        alt: "God's Own Country Kitchen signboard on North Cliff",
+        caption: "Owner's signboard · North Cliff near Helipad",
+        size: 'standard',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=1000&q=85',
+        alt: 'Fresh Kerala fish curry cooked in traditional clay pot',
+        caption: 'Clay pot Kerala fish curry with coconut milk',
+        size: 'tall',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?auto=format&fit=crop&w=1000&q=85',
+        alt: 'Waves crashing beneath the red laterite cliffs of Varkala',
+        caption: 'Arabian Sea cliff waves below North Cliff',
+        size: 'wide',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1000&q=85',
+        alt: 'Golden sunset over the ocean horizon',
+        caption: 'Sunset over the Arabian Sea from the dining deck',
+        size: 'standard',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1000&q=85',
+        alt: 'Live acoustic guitar performance in ambient light',
+        caption: 'Live acoustic evening sessions',
+        size: 'tall',
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1000&q=85',
+        alt: 'Coconut palms framing the coastline',
+        caption: 'Coastal palm fringe along North Cliff',
+        size: 'wide',
+      },
     ],
   },
+
+  // About Section (Section 2)
   about: {
-    eyebrow: "Our story",
-    title: 'A perch above the waves.',
-    body: "We built God's Own Country Kitchen as an unhurried perch where the red cliffs of Varkala look out over the endless Arabian Sea. A boutique cliff stay and culinary haven where slow mornings begin with locally brewed spiced chai and gentle sea breezes, and evenings gather quietly around the horizon’s sunset glow.",
-    caption: 'Cliff sanctuary perched above Varkala’s North Cliff · Est. 2012.',
+    eyebrow: 'Our Story & Perch',
+    title: 'A cliff-top Kerala kitchen above the waves.',
+    body: "Located on Varkala’s North Cliff near the Helipad, God's Own Country Kitchen was built on a love for fresh Arabian Sea seafood, authentic Kerala recipes, and open-air evenings. Settle into our outdoor seating to watch the sunset melt into the ocean, savour fragrant coconut curries, and enjoy the rhythm of live music under the stars.",
+    caption: 'Cliff-top restaurant on North Cliff near the Helipad · Est. 2012',
   },
-  dining: {
-    eyebrow: 'At the table',
-    title: 'The Cliff Table: coastal catches and slow morning feasts.',
-    body: 'Freshly landed catch from local fishers, traditional Malabar prawn masala, soft appams with coconut stew, and freshly pressed tropical juices served right above the breaking waves.',
-  },
+
+  // Find Us (Section 10)
   location: {
-    eyebrow: 'Close to the good things',
-    title: 'Meet us on the cliff.',
-    body: "Perched on Varkala’s red laterite cliff, God's Own Country Kitchen is close enough to walk down to Papanasam Beach and secluded enough for the coastal evenings to feel entirely your own.",
+    eyebrow: 'Find Us on the Cliff',
+    title: 'Near the Helipad on North Cliff.',
+    body: "God's Own Country Kitchen is situated on North Cliff, just steps from the Varkala Helipad. Follow the cliff path for panoramic ocean views, sea breeze, and fresh food.",
+    address: 'North Cliff, near Helipad, Varkala, Kerala 695141',
+    hoursPlaceholder: 'Hours: to be confirmed',
+    parkingPlaceholder: 'Parking: to be confirmed',
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=God's+Own+Country+Kitchen+North+Cliff+Varkala",
   },
-  roomsSection: {
-    eyebrow: 'Stay a little longer',
-    title: 'Rooms with room to breathe.',
-    body: 'Four ways to slow down. Each one is shaped by sea breeze, golden cliff light, and the kind of details you notice on day two.',
-  },
-  attractions: [
-    { distance: '[distance]', name: 'Papanasam Beach', detail: 'Sacred waters & cliff beach' },
-    { distance: '[distance]', name: 'Janardhana Swamy Temple', detail: 'Ancient 2,000-year shrine' },
-    { distance: '[distance]', name: 'Sivagiri Mutt', detail: 'Peaceful hilltop ashram' },
-    { distance: '[distance]', name: 'Kappil backwaters', detail: 'Where backwater meets the sea' },
-    { distance: '[distance]', name: 'Anjengo Fort', detail: 'Historic coastal ramparts' },
-  ],
-  reviews: [
-    {
-      quote: 'Watching the sun dissolve into the Arabian Sea from our balcony was magic. Fresh appams every morning and the kindest hospitality.',
-      author: 'Sample review · Elena M.',
-      stay: 'Stayed in the Sunset Suite',
-    },
-    {
-      quote: 'The yoga deck at dawn with sea breezes was rejuvenating. Close enough to walk down to Papanasam Beach yet peaceful on the cliff.',
-      author: 'Sample review · Rahul & Priya K.',
-      stay: 'Stayed in the Cliff View Deluxe',
-    },
-    {
-      quote: 'Authentic Kerala fish curry, coconut groves, and genuinely thoughtful hosts. A memorable coastal escape.',
-      author: 'Sample review · Thomas B.',
-      stay: 'Stayed in the Palm Garden Cottage',
-    },
-  ],
+
+  // FAQ Section (Section 11)
   faqs: [
     {
-      question: "How do we reach God's Own Country Kitchen in Varkala?",
-      answer: "Varkala Sivagiri Railway Station is approximately 10 minutes away by auto-rickshaw. Thiruvananthapuram International Airport (TRV) is about 45 km south (1 to 1.5 hours by car). Pre-arranged pickup can be organized upon request.",
+      question: 'Do you offer vegetarian options?',
+      answer: 'Yes! We take pride in serving a rich selection of authentic Kerala vegetarian dishes, including creamy vegetable stew, appams, Malabar parottas, paneer ghee roast, and traditional avial.',
     },
     {
-      question: 'What is the best season to visit?',
-      answer: 'The peak coastal season runs from October to March with balmy sunshine and gentle breezes. The monsoon season (June to August) is lush, quieter, and celebrated for authentic Ayurveda retreats.',
+      question: 'Do you have outdoor seating with sea views?',
+      answer: 'Yes, our restaurant features open-air outdoor seating situated directly along North Cliff, offering panoramic, unobstructed views of the Arabian Sea and breathtaking sunsets.',
     },
     {
-      question: 'What are your check-in and check-out timings?',
-      answer: 'Check-in begins at 2:00 PM and check-out is by 11:00 AM. Flexible arrival and late checkout can be arranged subject to room availability.',
+      question: 'When do you have live music?',
+      answer: 'We host live music performances in the evenings. The weekly acoustic and vocal lineup brings gentle seaside rhythms to your dinner. Exact artists and schedule: to be confirmed.',
     },
     {
-      question: 'Is swimming in the sea safe?',
-      answer: 'Papanasam Beach is easily accessed via cliff pathways. We advise guests to swim only in designated lifeguard-patrolled zones and heed local tide flags.',
-    },
-    {
-      question: 'Do you offer airport or railway transfers?',
-      answer: 'Yes, our team organizes reliable private transfers directly between Thiruvananthapuram Airport or Varkala Railway Station and our cliff driveway.',
-    },
-    {
-      question: 'What payment methods do you accept?',
-      answer: 'We accept UPI, all major credit and debit cards, net banking, and direct transfers.',
+      question: 'How do we reserve a table?',
+      answer: 'You can reserve a table directly using our Table Reservation form on this website or by sending us a quick WhatsApp message. We recommend booking in advance for sunset tables and weekend live music evenings.',
     },
   ],
+
+  // Table reservation config
+  reservation: {
+    title: 'Reserve a Table by the Sea',
+    eyebrow: 'Table Reservation',
+    description: 'Book your table for lunch, golden hour sunset, or an evening of live music on North Cliff.',
+    timeSlots: [
+      'Lunch (12:30 PM – 3:30 PM)',
+      'Sunset & Golden Hour (5:00 PM – 7:00 PM)',
+      'Dinner & Live Music (7:00 PM – 10:30 PM)',
+      'Other / Flexible',
+    ],
+    occasions: [
+      'Casual dining',
+      'Sunset drinks & dinner',
+      'Live music evening',
+      'Birthday celebration',
+      'Anniversary',
+      'Group / Family feast',
+    ],
+    guestOptions: ['1 person', '2 people', '3 people', '4 people', '5–8 people', '9+ group'],
+  },
 }
 
 export const navigation = [
-  { label: 'Stay', href: '#rooms' },
+  { label: 'Menu', href: '#menu' },
   { label: 'Story', href: '#about' },
-  { label: 'The gallery', href: '#gallery' },
-  { label: 'Find us', href: '#location' },
+  { label: 'Highlights', href: '#highlights' },
+  { label: 'Live Music', href: '#live-music' },
+  { label: 'Outdoor', href: '#outdoor' },
+  { label: 'Reviews', href: '#reviews' },
+  { label: 'Gallery', href: '#gallery' },
+  { label: 'Find Us', href: '#location' },
 ]

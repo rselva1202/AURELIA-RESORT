@@ -6,9 +6,20 @@ import { siteConfig } from './data/siteConfig'
 import useReducedMotion from './hooks/useReducedMotion'
 import Header from './components/Header'
 import Hero from './components/Hero'
-import RoomsSection from './components/RoomsSection'
+import MenuSection from './components/MenuSection'
+import LiveMusicSection from './components/LiveMusicSection'
 import GallerySection from './components/GallerySection'
-import { AboutSection, AmenitiesSection, DiningSection, ReviewsSection, LocationSection, FaqSection, ContactSection, FooterSection } from './components/ExperienceSections'
+import {
+  AboutSection,
+  HighlightsSection,
+  OutdoorViewSection,
+  ReviewsSection,
+  EventsSection,
+  LocationSection,
+  FaqSection,
+  ContactSection,
+  FooterSection,
+} from './components/ExperienceSections'
 import { CustomCursor, Lightbox, Loader, WaveDivider, WhatsAppFloat } from './components/UI'
 
 const Scene3DContainer = lazy(() => import('./components/Scene3D/Scene3DContainer'))
@@ -22,8 +33,10 @@ export default function App() {
   const [loading, setLoading] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
   const [lightbox, setLightbox] = useState(null)
-  const [bookingIntent, setBookingIntent] = useState(null)
-  const [scene3DActive, setScene3DActive] = useState(() => siteConfig.scene3D?.enabled !== false && !reducedMotion)
+  const [reservationIntent, setReservationIntent] = useState(null)
+  const [scene3DActive, setScene3DActive] = useState(
+    () => siteConfig.scene3D?.enabled !== false && !reducedMotion
+  )
 
   useEffect(() => {
     const is3D = scene3DActive && !reducedMotion
@@ -48,19 +61,71 @@ export default function App() {
     if (loading) return undefined
     const ctx = gsap.context(() => {
       gsap.utils.toArray('[data-reveal]').forEach((element) => {
-        gsap.fromTo(element, { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 88%', once: true } })
+        gsap.fromTo(
+          element,
+          { y: 34, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.9,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: element, start: 'top 88%', once: true },
+          }
+        )
       })
+
       if (!reducedMotion) {
-        gsap.fromTo('.hero-media img', { scale: 1.16 }, { scale: 1.03, duration: 2, ease: 'power2.out' })
-        gsap.to('.hero-media img', { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } })
-        gsap.to('.hero__shade-sunset', { opacity: 1, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } })
-        gsap.fromTo('.hero-copy-line', { yPercent: 105, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.05, stagger: 0.13, delay: 0.05, ease: 'power4.out' })
-        gsap.utils.toArray('.image-reveal img').forEach((image) => gsap.fromTo(image, { scale: 1.08 }, { scale: 1, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: image, start: 'top 86%', once: true } }))
-        const track = document.querySelector('.rooms-track')
-        const pin = document.querySelector('.rooms-pin')
+        gsap.fromTo(
+          '.hero-media img',
+          { scale: 1.16 },
+          { scale: 1.03, duration: 2, ease: 'power2.out' }
+        )
+        gsap.to('.hero-media img', {
+          yPercent: 12,
+          ease: 'none',
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
+        })
+        gsap.to('.hero__shade-sunset', {
+          opacity: 1,
+          ease: 'none',
+          scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
+        })
+        gsap.fromTo(
+          '.hero-copy-line',
+          { yPercent: 105, opacity: 0 },
+          { yPercent: 0, opacity: 1, duration: 1.05, stagger: 0.13, delay: 0.05, ease: 'power4.out' }
+        )
+        gsap.utils.toArray('.image-reveal img').forEach((image) =>
+          gsap.fromTo(
+            image,
+            { scale: 1.08 },
+            {
+              scale: 1,
+              duration: 1.2,
+              ease: 'power2.out',
+              scrollTrigger: { trigger: image, start: 'top 86%', once: true },
+            }
+          )
+        )
+
+        // Pinned horizontal scroll for weekly live music lineup
+        const track = document.querySelector('.lineup-track')
+        const pin = document.querySelector('.lineup-pin')
         if (track && pin && window.matchMedia('(min-width: 981px)').matches) {
           const getDistance = () => Math.max(0, track.scrollWidth - window.innerWidth + 80)
-          gsap.to(track, { x: () => -getDistance(), ease: 'none', scrollTrigger: { trigger: pin, start: 'top top', end: () => `+=${getDistance()}`, scrub: 1, pin: true, anticipatePin: 1, invalidateOnRefresh: true } })
+          gsap.to(track, {
+            x: () => -getDistance(),
+            ease: 'none',
+            scrollTrigger: {
+              trigger: pin,
+              start: 'top top',
+              end: () => `+=${getDistance()}`,
+              scrub: 1,
+              pin: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+            },
+          })
         }
       }
       ScrollTrigger.refresh()
@@ -118,55 +183,103 @@ export default function App() {
     }
   }, [menuOpen])
 
-  const openBooking = (intent = {}) => {
-    setBookingIntent(intent)
-    window.setTimeout(() => document.querySelector('#contact')?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' }), 40)
+  const openReservation = (intent = {}) => {
+    setReservationIntent(intent)
+    window.setTimeout(() => {
+      document.querySelector('#reservation')?.scrollIntoView({
+        behavior: reducedMotion ? 'auto' : 'smooth',
+      })
+    }, 40)
   }
-  const handleAvailability = (dates) => openBooking(dates)
-  return <>
-    {loading && <Loader onComplete={() => setLoading(false)} />}
-    {!loading && scene3DActive && !reducedMotion && (
-      <Suspense fallback={null}>
-        <Scene3DContainer
-          scrollProgressRef={scrollProgressRef}
-          enabled={scene3DActive}
-          qualitySetting={siteConfig.scene3D?.quality || 'auto'}
-          reducedMotion={reducedMotion}
-        />
-      </Suspense>
-    )}
-    <div className="progress-bar" aria-hidden="true" />
-    <Header menuOpen={menuOpen} onMenuToggle={setMenuOpen} />
-    <main>
-      <Hero onAvailability={handleAvailability} />
-      <WaveDivider fill="var(--sand)" />
-      <AboutSection />
-      <WaveDivider fill="var(--ocean-teal)" />
-      <RoomsSection onBook={(room) => openBooking({ room: room.name })} />
-      <WaveDivider fill="var(--cream)" />
-      <AmenitiesSection />
-      <WaveDivider fill="var(--sage)" />
-      <DiningSection />
-      <WaveDivider fill="var(--cream)" />
-      <GallerySection onOpen={setLightbox} />
-      <WaveDivider fill="var(--ocean-teal)" />
-      <ReviewsSection />
-      <WaveDivider fill="var(--sand)" />
-      <LocationSection />
-      <WaveDivider fill="var(--cream)" />
-      <FaqSection />
-      <WaveDivider fill="var(--laterite)" />
-      <ContactSection bookingIntent={bookingIntent} />
-      <WaveDivider fill="var(--ocean-teal)" />
-    </main>
-    <FooterSection
-      scene3DActive={scene3DActive && !reducedMotion}
-      onToggle3D={() => setScene3DActive((prev) => !prev)}
-    />
-    <WhatsAppFloat />
-    <Lightbox image={lightbox} onClose={() => setLightbox(null)} />
-    <CustomCursor />
-    <div className="grain" aria-hidden="true" />
-    <div className="sr-only">{siteConfig.brand.shortName} resort website</div>
-  </>
+
+  const handleHighlightSelect = (id) => {
+    if (id === 'live-music') {
+      document.querySelector('#live-music')?.scrollIntoView({ behavior: 'smooth' })
+    } else if (id === 'outdoor-seating') {
+      document.querySelector('#outdoor')?.scrollIntoView({ behavior: 'smooth' })
+    } else if (id === 'vegetarian-options') {
+      document.querySelector('#menu')?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  return (
+    <>
+      {loading && <Loader onComplete={() => setLoading(false)} />}
+      {!loading && scene3DActive && !reducedMotion && (
+        <Suspense fallback={null}>
+          <Scene3DContainer
+            scrollProgressRef={scrollProgressRef}
+            enabled={scene3DActive}
+            qualitySetting={siteConfig.scene3D?.quality || 'auto'}
+            reducedMotion={reducedMotion}
+          />
+        </Suspense>
+      )}
+      <div className="progress-bar" aria-hidden="true" />
+      <Header menuOpen={menuOpen} onMenuToggle={setMenuOpen} />
+      <main>
+        {/* 1. Hero */}
+        <Hero onBookTable={() => openReservation({ occasion: 'Sunset & Sea View Table' })} />
+        <WaveDivider fill="var(--sand)" />
+
+        {/* 2. About */}
+        <AboutSection />
+        <WaveDivider fill="var(--cream)" />
+
+        {/* 3. Service highlights */}
+        <HighlightsSection onHighlightSelect={handleHighlightSelect} />
+        <WaveDivider fill="var(--sand)" />
+
+        {/* 4. Menu */}
+        <MenuSection onReserveItem={openReservation} />
+        <WaveDivider fill="var(--ocean-teal)" />
+
+        {/* 5. Live music (Pinned horizontal scroll) */}
+        <LiveMusicSection onReserve={openReservation} />
+        <WaveDivider fill="var(--sand)" />
+
+        {/* 6. Outdoor seating and sea view */}
+        <OutdoorViewSection onReserveTable={openReservation} />
+        <WaveDivider fill="var(--ocean-teal)" />
+
+        {/* 7. Reviews (3,800+ Google reviews counter) */}
+        <ReviewsSection />
+        <WaveDivider fill="var(--cream)" />
+
+        {/* 8. Events and groups */}
+        <EventsSection onEnquireEvent={openReservation} />
+        <WaveDivider fill="var(--ocean-teal)" />
+
+        {/* 9. Gallery */}
+        <GallerySection onOpen={setLightbox} />
+        <WaveDivider fill="var(--sand)" />
+
+        {/* 10. Find us */}
+        <LocationSection />
+        <WaveDivider fill="var(--cream)" />
+
+        {/* 11. FAQ */}
+        <FaqSection />
+        <WaveDivider fill="var(--laterite)" />
+
+        {/* Table Reservation & Contact */}
+        <ContactSection reservationIntent={reservationIntent} />
+        <WaveDivider fill="var(--ocean-teal)" />
+      </main>
+
+      {/* 12. Footer */}
+      <FooterSection
+        scene3DActive={scene3DActive && !reducedMotion}
+        onToggle3D={() => setScene3DActive((prev) => !prev)}
+      />
+
+      <WhatsAppFloat />
+      <Lightbox image={lightbox} onClose={() => setLightbox(null)} />
+      <CustomCursor />
+      <div className="grain" aria-hidden="true" />
+      <div className="sr-only">
+        {siteConfig.brand.name} restaurant and live music concept website
+      </div>
+    </>
+  )
 }

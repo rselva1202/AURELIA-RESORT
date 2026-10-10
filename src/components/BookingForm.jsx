@@ -1,56 +1,197 @@
 import { useEffect, useState } from 'react'
 import { siteConfig } from '../data/siteConfig'
-import { Button } from './UI'
+import { ArrowIcon, Button } from './UI'
 
-const initialForm = { name: '', phone: '', checkIn: '', checkOut: '', guests: '2', room: '' }
-const toIsoDate = (date) => date.toISOString().slice(0, 10)
+const toIsoDate = (d) => d.toISOString().slice(0, 10)
 const todayIso = () => toIsoDate(new Date())
-const addDays = (dateString, days) => {
-  const date = new Date(`${dateString}T00:00:00`)
-  date.setDate(date.getDate() + days)
-  return toIsoDate(date)
-}
-const formatDate = (value) => value ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${value}T00:00:00Z`)) : 'Flexible'
 
-export default function BookingForm({ bookingIntent }) {
-  const [form, setForm] = useState(initialForm)
-  const [sent, setSent] = useState(false)
+export const formatDateDisplay = (dateString) => {
+  if (!dateString) return 'Flexible'
+  const [year, month, day] = dateString.split('-').map(Number)
+  const d = new Date(Date.UTC(year, month - 1, day))
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+  return `${d.getUTCDate()} ${months[d.getUTCMonth()]} ${d.getUTCFullYear()}`
+}
+
+const defaultReservation = {
+  name: '',
+  people: '2 people',
+  date: todayIso(),
+  timeSlot: 'Sunset & Golden Hour (5:00 PM – 7:00 PM)',
+  occasion: 'Casual dining',
+  notes: '',
+}
+
+export default function BookingForm({ reservationIntent }) {
+  const [form, setForm] = useState(defaultReservation)
+  const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
   const today = todayIso()
-  const minCheckOut = form.checkIn ? addDays(form.checkIn, 1) : addDays(today, 1)
 
   useEffect(() => {
-    if (!bookingIntent) return
-    setForm((current) => ({ ...current, ...bookingIntent }))
-    setSent(false)
-    setError('')
-  }, [bookingIntent])
+    if (reservationIntent) {
+      setForm((prev) => ({ ...prev, ...reservationIntent }))
+      setSubmitted(false)
+      setError('')
+    }
+  }, [reservationIntent])
 
   const setField = (key, value) => {
-    setForm((current) => ({ ...current, [key]: value }))
+    setForm((prev) => ({ ...prev, [key]: value }))
     setError('')
   }
 
   const submit = (event) => {
     event.preventDefault()
-    const clean = Object.fromEntries(Object.entries(form).map(([key, value]) => [key, value.trim()]))
-    if (clean.checkIn && clean.checkIn < today) return setError('Choose a check-in date from today onwards.')
-    if (clean.checkOut && (!clean.checkIn || clean.checkOut <= clean.checkIn)) return setError('Check-out must be at least one night after check-in.')
+    const clean = {
+      name: form.name.trim(),
+      people: form.people,
+      date: form.date,
+      timeSlot: form.timeSlot,
+      occasion: form.occasion,
+      notes: form.notes.trim(),
+    }
+
+    if (!clean.name) {
+      return setError('Please enter your name.')
+    }
+    if (clean.date && clean.date < today) {
+      return setError('Please choose a reservation date from today onwards.')
+    }
+
     setError('')
-    const message = [`Hello ${siteConfig.brand.shortName}, I would like to enquire about a stay.`, `Name: ${clean.name}`, `Phone: ${clean.phone}`, `Check-in: ${formatDate(clean.checkIn)}`, `Check-out: ${formatDate(clean.checkOut)}`, `Guests: ${clean.guests}`, `Room: ${clean.room || 'Please recommend one'}`].join('\n')
-    window.open(`https://wa.me/${siteConfig.brand.whatsapp}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer')
-    setSent(true)
+
+    const formattedDate = formatDateDisplay(clean.date)
+    const lines = [
+      `Table Reservation Enquiry · ${siteConfig.brand.name}`,
+      `Name: ${clean.name}`,
+      `Number of people: ${clean.people}`,
+      `Date: ${formattedDate}`,
+      `Time slot: ${clean.timeSlot}`,
+      clean.occasion ? `Occasion: ${clean.occasion}` : null,
+      clean.notes ? `Notes: ${clean.notes}` : null,
+    ].filter(Boolean)
+
+    const message = lines.join('\n')
+    const whatsappUrl = `https://wa.me/${siteConfig.brand.whatsapp}?text=${encodeURIComponent(message)}`
+
+    setSubmitted(true)
+    window.open(whatsappUrl, '_blank')
+  }
+
+  const reservationCfg = siteConfig.reservation || {
+    title: 'Reserve a Table by the Sea',
+    eyebrow: 'Table Reservation',
+    description: 'Book your table for lunch, golden hour sunset, or an evening of live music on North Cliff.',
+    timeSlots: ['Lunch (12:30 PM – 3:30 PM)', 'Sunset & Golden Hour (5:00 PM – 7:00 PM)', 'Dinner & Live Music (7:00 PM – 10:30 PM)', 'Other / Flexible'],
+    occasions: ['Casual dining', 'Sunset drinks & dinner', 'Live music evening', 'Birthday celebration', 'Anniversary', 'Group / Family feast'],
+    guestOptions: ['1 person', '2 people', '3 people', '4 people', '5–8 people', '9+ group'],
   }
 
   return (
-    <div className="booking-card" data-reveal>
-      <div className="booking-card__intro"><p className="eyebrow">Make it yours</p><h3>Tell us what a good stay looks like.</h3><p>Leave a few details and our small team will come back to you on WhatsApp with availability.</p></div>
+    <div className="booking-card" id="reservation">
+      <div className="booking-card__intro">
+        <p className="eyebrow">{reservationCfg.eyebrow}</p>
+        <h3>{reservationCfg.title}</h3>
+        <p>{reservationCfg.description}</p>
+        <div className="booking-card__notes">
+          <span>☼ Outdoor seating & Arabian Sea views</span>
+          <span>♪ Live music every evening</span>
+          <span>🌿 Vegetarian options available</span>
+        </div>
+      </div>
+
       <form className="booking-form" onSubmit={submit} noValidate>
-        <div className="form-row"><label className="floating-field"><input required value={form.name} onChange={(event) => setField('name', event.target.value)} placeholder=" " /><span>Your name</span></label><label className="floating-field"><input required type="tel" value={form.phone} onChange={(event) => setField('phone', event.target.value)} placeholder=" " /><span>Phone number</span></label></div>
-        <div className="form-row"><label className="floating-field"><input type="date" min={today} value={form.checkIn} onChange={(event) => setField('checkIn', event.target.value)} placeholder=" " /><span>Check in</span></label><label className="floating-field"><input type="date" min={minCheckOut} value={form.checkOut} onChange={(event) => setField('checkOut', event.target.value)} placeholder=" " /><span>Check out</span></label></div>
-        <div className="form-row"><label className="floating-field"><select value={form.guests} onChange={(event) => setField('guests', event.target.value)}><option value="1">1 guest</option><option value="2">2 guests</option><option value="3">3 guests</option><option value="4">4 guests</option></select><span>Guests</span></label><label className="floating-field"><select value={form.room} onChange={(event) => setField('room', event.target.value)}><option value="">Any room</option>{siteConfig.rooms.map((room) => <option key={room.id} value={room.name}>{room.name}</option>)}</select><span>Room preference</span></label></div>
-        {error && <p className="form-error" role="alert">{error}</p>}
-        <div className="booking-form__footer"><Button type="submit">Open WhatsApp</Button>{sent && <span className="form-success" role="status">Your message is ready in WhatsApp ↗</span>}</div>
+        <div className="form-row">
+          <label className="floating-field">
+            <input
+              type="text"
+              value={form.name}
+              onChange={(e) => setField('name', e.target.value)}
+              placeholder=" "
+              required
+              aria-label="Your full name"
+            />
+            <span>Your name *</span>
+          </label>
+          <label className="floating-field">
+            <select
+              value={form.people}
+              onChange={(e) => setField('people', e.target.value)}
+              aria-label="Number of people"
+            >
+              {reservationCfg.guestOptions.map((opt) => (
+                <option key={opt} value={opt}>{opt}</option>
+              ))}
+            </select>
+            <span>Number of people</span>
+          </label>
+        </div>
+
+        <div className="form-row">
+          <label className="floating-field">
+            <input
+              type="date"
+              min={today}
+              value={form.date}
+              onChange={(e) => setField('date', e.target.value)}
+              placeholder=" "
+              required
+              aria-label="Reservation date"
+            />
+            <span>Date *</span>
+          </label>
+          <label className="floating-field">
+            <select
+              value={form.timeSlot}
+              onChange={(e) => setField('timeSlot', e.target.value)}
+              aria-label="Preferred time slot"
+            >
+              {reservationCfg.timeSlots.map((slot) => (
+                <option key={slot} value={slot}>{slot}</option>
+              ))}
+            </select>
+            <span>Time slot</span>
+          </label>
+        </div>
+
+        <div className="form-row">
+          <label className="floating-field">
+            <select
+              value={form.occasion}
+              onChange={(e) => setField('occasion', e.target.value)}
+              aria-label="Occasion"
+            >
+              {reservationCfg.occasions.map((occ) => (
+                <option key={occ} value={occ}>{occ}</option>
+              ))}
+            </select>
+            <span>Occasion (optional)</span>
+          </label>
+          <label className="floating-field">
+            <input
+              type="text"
+              value={form.notes}
+              onChange={(e) => setField('notes', e.target.value)}
+              placeholder=" "
+              aria-label="Special requests or dietary notes"
+            />
+            <span>Special requests / Dietary notes</span>
+          </label>
+        </div>
+
+        <div className="booking-form__footer">
+          <button type="submit" className="button button--primary">
+            <span>Confirm on WhatsApp</span>
+            <ArrowIcon />
+          </button>
+          {submitted && (
+            <span className="form-success">
+              WhatsApp opened! Send the message to complete your reservation.
+            </span>
+          )}
+          {error && <p className="form-error" role="alert">{error}</p>}
+        </div>
       </form>
     </div>
   )

@@ -25,6 +25,7 @@ export default defineConfig(({ command }) => ({
           ['OG_DESCRIPTION', siteConfig.seo.ogDescription],
           ['OG_IMAGE', ogImage],
           ['SITE_TITLE', siteConfig.seo.title],
+          ['ROBOTS_META', siteConfig.demoMode ? 'noindex,nofollow' : 'index,follow'],
         ].reduce(
           (result, [token, value]) => replaceToken(result, token, value),
           html

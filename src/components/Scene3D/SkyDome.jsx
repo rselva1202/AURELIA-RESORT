@@ -53,8 +53,8 @@ export default function SkyDome({ quality = 'high', scrollProgressRef }) {
     hero: { top: new THREE.Color('#0A333E'), bottom: new THREE.Color('#16525F'), horizon: new THREE.Color('#78C4BC') },
     // About: Coastal Daylight
     about: { top: new THREE.Color('#0F414F'), bottom: new THREE.Color('#257180'), horizon: new THREE.Color('#94DDD5') },
-    // Rooms: Midday Turquoise
-    rooms: { top: new THREE.Color('#0B3844'), bottom: new THREE.Color('#1C6170'), horizon: new THREE.Color('#82CEC6') },
+    // Midday: Coastal Turquoise
+    midday: { top: new THREE.Color('#0B3844'), bottom: new THREE.Color('#1C6170'), horizon: new THREE.Color('#82CEC6') },
     // Sunset: Coral & Purple
     sunset: { top: new THREE.Color('#381836'), bottom: new THREE.Color('#8C3428'), horizon: new THREE.Color('#F4906F') },
     // Night: Deep Starlit Indigo
@@ -123,19 +123,19 @@ export default function SkyDome({ quality = 'high', scrollProgressRef }) {
       sunPos = [2 - t * 4, 7.5 + t * 2, -42]
       sunIntensity = 1.4 + t * 0.4
     } else if (p < 0.65) {
-      // Rooms (40 - 65%)
+      // Menu & Lineup (40 - 65%)
       const t = (p - 0.40) / 0.25
-      top = new THREE.Color().lerpColors(skyColors.about.top, skyColors.rooms.top, t)
-      bottom = new THREE.Color().lerpColors(skyColors.about.bottom, skyColors.rooms.bottom, t)
-      horizon = new THREE.Color().lerpColors(skyColors.about.horizon, skyColors.rooms.horizon, t)
+      top = new THREE.Color().lerpColors(skyColors.about.top, skyColors.midday.top, t)
+      bottom = new THREE.Color().lerpColors(skyColors.about.bottom, skyColors.midday.bottom, t)
+      horizon = new THREE.Color().lerpColors(skyColors.about.horizon, skyColors.midday.horizon, t)
       sunPos = [-2 - t * 3, 9.5 - t * 3.5, -42]
       sunIntensity = 1.8 - t * 0.3
     } else if (p < 0.85) {
       // Sunset (65 - 85%)
       const t = (p - 0.65) / 0.20
-      top = new THREE.Color().lerpColors(skyColors.rooms.top, skyColors.sunset.top, t)
-      bottom = new THREE.Color().lerpColors(skyColors.rooms.bottom, skyColors.sunset.bottom, t)
-      horizon = new THREE.Color().lerpColors(skyColors.rooms.horizon, skyColors.sunset.horizon, t)
+      top = new THREE.Color().lerpColors(skyColors.midday.top, skyColors.sunset.top, t)
+      bottom = new THREE.Color().lerpColors(skyColors.midday.bottom, skyColors.sunset.bottom, t)
+      horizon = new THREE.Color().lerpColors(skyColors.midday.horizon, skyColors.sunset.horizon, t)
       sunPos = [-5, 6.0 - t * 5.2, -42] // Sinking sun
       sunColor = t > 0.5 ? '#F4906F' : '#F7B07A'
       sunIntensity = 1.5 - t * 0.8

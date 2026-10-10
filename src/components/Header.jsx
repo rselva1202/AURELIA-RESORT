@@ -34,8 +34,8 @@ export default function Header({ menuOpen, onMenuToggle }) {
         {navigation.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
       </nav>
       <div className="site-header__actions">
-        <a className="site-header__phone" href={siteConfig.brand.phoneHref}>{siteConfig.brand.phone}</a>
-        <Button href="#contact" variant={solid || menuOpen ? 'primary' : 'light'}>Book your stay</Button>
+        <a className="site-header__phone" href={siteConfig.brand.phoneHref} target="_blank" rel="noreferrer">WhatsApp</a>
+        <Button href="#reservation" variant={solid || menuOpen ? 'primary' : 'light'}>Book a table</Button>
         <button className="menu-toggle" type="button" onClick={() => onMenuToggle(!menuOpen)} aria-expanded={menuOpen} aria-controls="mobile-menu"><span /><span /><span /><b>{menuOpen ? 'Close' : 'Menu'}</b></button>
       </div>
     </header>

@@ -113,6 +113,6 @@ function WhatsAppIcon() {
 }
 
 export function WhatsAppFloat() {
-  const href = `https://wa.me/${siteConfig.brand.whatsapp}?text=${encodeURIComponent(`Hello ${siteConfig.brand.shortName}, I would like to enquire about a stay.`)}`
-  return <a className="whatsapp-float" href={href} target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp"><span className="whatsapp-float__label">Chat on WhatsApp</span><span className="whatsapp-float__icon"><WhatsAppIcon /></span></a>
+  const href = `https://wa.me/${siteConfig.brand.whatsapp}?text=${encodeURIComponent(`Hello ${siteConfig.brand.shortName}, I would like to reserve a table.`)}`
+  return <a className="whatsapp-float" href={href} target="_blank" rel="noreferrer" aria-label="Book a table on WhatsApp"><span className="whatsapp-float__label">Book a Table</span><span className="whatsapp-float__icon"><WhatsAppIcon /></span></a>
 }
