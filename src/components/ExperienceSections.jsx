@@ -398,15 +398,8 @@ export function FooterSection() {
         </div>
       </div>
 
-      {siteConfig.demoMode && (
-        <div className="footer__demo-disclaimer page-shell" role="note">
-          <p>⚠️ <strong>{siteConfig.demoNote || 'Sample concept, not yet approved by the restaurant'}</strong>. All trademarks, names, and images belong to their respective owners. Details, hours and prices are placeholders to be confirmed by the owner.</p>
-        </div>
-      )}
-
       <div className="footer__bottom page-shell">
         <span>© {new Date().getFullYear()} {siteConfig.brand.shortName}</span>
-        <span className="footer__demo-note">{siteConfig.demoNote}</span>
         <span>{siteConfig.brand.locationLine}</span>
       </div>
     </footer>
