@@ -6,7 +6,7 @@ const replaceToken = (html, token, value) =>
   html.replaceAll(`__${token}__`, value)
 
 export default defineConfig(({ command }) => ({
-  base: command === 'serve' ? '/' : '/AURELIA-RESORT/',
+  base: command === 'serve' ? '/' : '/GOD-S-HEAVEN/',
 
   plugins: [
     react(),
