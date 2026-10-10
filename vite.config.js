@@ -5,8 +5,8 @@ import { siteConfig } from './src/data/siteConfig.js'
 const replaceToken = (html, token, value) =>
   html.replaceAll(`__${token}__`, value)
 
-export default defineConfig({
-  base: process.env.GITHUB_ACTIONS ? '/AURELIA-RESORT/' : '/',
+export default defineConfig(({ command }) => ({
+  base: command === 'serve' ? '/' : '/AURELIA-RESORT/',
 
   plugins: [
     react(),
@@ -42,4 +42,4 @@ export default defineConfig({
     target: 'es2020',
     sourcemap: true,
   },
-})
+}))

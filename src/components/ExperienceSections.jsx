@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { siteConfig, navigation } from '../data/siteConfig'
 import BookingForm from './BookingForm'
 import { ArrowIcon, Button, ImageReveal, SectionHeading } from './UI'
+import brandLogo from '../assets/logo.png'
 
 export function AboutSection() {
+  const logoSrc = brandLogo || siteConfig.brand.logo
   return (
     <section className="about section-sand" id="about" aria-labelledby="about-title">
       <div className="about__grid page-shell">
@@ -15,8 +17,8 @@ export function AboutSection() {
             body={siteConfig.about?.body}
           />
           <div className="about__signature">
-            {siteConfig.brand.logo ? (
-              <img src={siteConfig.brand.logo} alt="" className="about__signature-logo" />
+            {logoSrc ? (
+              <img src={logoSrc} alt="" className="about__signature-logo" />
             ) : (
               <span className="signature-mark">{siteConfig.brand.shortName ? siteConfig.brand.shortName[0] : 'G'}</span>
             )}
@@ -153,8 +155,8 @@ export function LocationSection() {
           </div>
           <div className="map-card__roads"><i /><i /><i /><i /></div>
           <div className="map-card__pin">
-            {siteConfig.brand.logo ? (
-              <img src={siteConfig.brand.logo} alt="" className="map-card__pin-logo" />
+            {(brandLogo || siteConfig.brand.logo) ? (
+              <img src={brandLogo || siteConfig.brand.logo} alt="" className="map-card__pin-logo" />
             ) : (
               <span>{siteConfig.brand.shortName ? siteConfig.brand.shortName[0] : 'G'}</span>
             )}
@@ -278,10 +280,11 @@ export function FooterSection({ scene3DActive = false, onToggle3D }) {
 }
 
 function BrandFooter() {
+  const logoSrc = brandLogo || siteConfig.brand.logo
   return (
     <div className="footer-brand" aria-label={siteConfig.brand.name}>
-      {siteConfig.brand.logo && (
-        <img src={siteConfig.brand.logo} alt="" className="footer-brand__logo" />
+      {logoSrc && (
+        <img src={logoSrc} alt="" className="footer-brand__logo" />
       )}
       <div className="footer-brand__text">
         <span>{siteConfig.brand.name}</span>

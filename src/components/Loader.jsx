@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { siteConfig } from '../data/siteConfig'
 import useReducedMotion from '../hooks/useReducedMotion'
+import brandLogo from '../assets/logo.png'
 
 const SESSION_STORAGE_KEY = 'gock_loader_session_seen'
 
@@ -243,10 +244,10 @@ export function Loader({ onComplete }) {
 
       {isReduced ? (
         <div className="loader__content loader__content--reduced">
-          {(logo || siteConfig.brand?.logo) && (
+          {(brandLogo || logo || siteConfig.brand?.logo) && (
             <div className="loader__logo-wrap">
               <img
-                src={logo || siteConfig.brand?.logo}
+                src={brandLogo || logo || siteConfig.brand?.logo}
                 alt={brandName}
                 className="loader__logo-img"
               />
@@ -258,10 +259,10 @@ export function Loader({ onComplete }) {
       ) : (
         <div className="loader__content">
           {/* Logo Badge */}
-          {(logo || siteConfig.brand?.logo) && (
+          {(brandLogo || logo || siteConfig.brand?.logo) && (
             <div className="loader__logo-wrap">
               <img
-                src={logo || siteConfig.brand?.logo}
+                src={brandLogo || logo || siteConfig.brand?.logo}
                 alt={brandName}
                 className="loader__logo-img"
               />

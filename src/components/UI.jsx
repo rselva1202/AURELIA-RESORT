@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { siteConfig } from '../data/siteConfig'
+import brandLogo from '../assets/logo.png'
 
 const responsiveSrcSet = (src) => [600, 900, 1400].map((width) => src.replace(/([?&])w=\d+/, `$1w=${width}`)).join(', ')
 
@@ -9,10 +10,11 @@ export function ArrowIcon({ direction = 'right' }) {
 
 export function BrandMark({ light = false, className = '' }) {
   const initial = siteConfig.brand.name ? siteConfig.brand.name[0] : 'G'
+  const logoSrc = brandLogo || siteConfig.brand.logo
   return (
     <span className={`brand-mark ${light ? 'brand-mark--light' : ''} ${className}`}>
-      {siteConfig.brand.logo ? (
-        <img src={siteConfig.brand.logo} alt="" className="brand-mark__logo" />
+      {logoSrc ? (
+        <img src={logoSrc} alt={siteConfig.brand.name} className="brand-mark__logo" />
       ) : (
         <span className="brand-mark__seal" aria-hidden="true"><span>{initial}</span></span>
       )}

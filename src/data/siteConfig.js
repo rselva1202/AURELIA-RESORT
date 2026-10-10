@@ -1,3 +1,11 @@
+const resolveBaseUrl = () => {
+  if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.BASE_URL) {
+    return import.meta.env.BASE_URL
+  }
+  return '/'
+}
+const withBase = (path) => `${resolveBaseUrl().replace(/\/$/, '')}/${path.replace(/^\//, '')}`
+
 export const siteConfig = {
   demoMode: true,
   demoNote: 'Sample website demo',
@@ -7,7 +15,7 @@ export const siteConfig = {
   },
   loader: {
     brandName: "God's Own Country Kitchen",
-    logo: '/logo.png',
+    logo: withBase('logo.png'),
     tagline: 'Varkala · Kerala',
     colors: {
       bg: '#0B3C49',
@@ -30,7 +38,7 @@ export const siteConfig = {
   brand: {
     name: "God's Own Country Kitchen",
     shortName: "God's Own Country Kitchen",
-    logo: '/logo.png',
+    logo: withBase('logo.png'),
     tagline: 'Where the cliff meets the sea.',
     taglineLines: ['Where the cliff', 'meets the sea.'],
     descriptor: 'Seafood Corner · Varkala',
